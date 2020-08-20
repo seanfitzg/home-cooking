@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.api", "HomeCooking.api\HomeCooking.api.csproj", "{CA69E9B7-5735-4961-9DA3-655899ADDEF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking", "HomeCooking\HomeCooking.csproj", "{CA69E9B7-5735-4961-9DA3-655899ADDEF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

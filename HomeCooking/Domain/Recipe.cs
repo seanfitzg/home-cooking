@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 
-namespace HomeCooking.api.Models
+namespace HomeCooking.data.Models
 {
     public class Recipe
     {
         public string Name { get;  set; }
         public string Method { get;  set; }
         public IEnumerable<Ingredient> Ingredients { get;  set; }
+        public int Id { get; set; }
     }
 
     public struct Ingredient
