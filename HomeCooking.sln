@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.api", "HomeCooking.api\HomeCooking.api.csproj", "{CA69E9B7-5735-4961-9DA3-655899ADDEF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA69E9B7-5735-4961-9DA3-655899ADDEF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA69E9B7-5735-4961-9DA3-655899ADDEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA69E9B7-5735-4961-9DA3-655899ADDEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA69E9B7-5735-4961-9DA3-655899ADDEF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
