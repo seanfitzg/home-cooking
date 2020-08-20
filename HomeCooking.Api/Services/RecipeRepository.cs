@@ -17,7 +17,7 @@ namespace HomeCooking.Api.Services
                     {
                         new Ingredient()
                         {
-                            FoodType = "Beans",
+                            FoodType = "Baked Beans",
                             Other = new Other(1, "Can")
                         },
                         new Ingredient()
