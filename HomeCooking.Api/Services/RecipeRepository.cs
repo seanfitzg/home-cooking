@@ -22,7 +22,7 @@ namespace HomeCooking.Api.Services
                         },
                         new Ingredient()
                         {
-                            FoodType = "Bread",
+                            FoodType = "Sliced Pan",
                             Other = new Other(1, "Can")
                         },
                         new Ingredient()
