@@ -19,7 +19,7 @@
     },
     "HomeCooking.api": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "recipes",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {

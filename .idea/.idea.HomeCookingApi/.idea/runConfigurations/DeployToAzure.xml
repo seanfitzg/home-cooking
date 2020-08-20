@@ -4,15 +4,15 @@
     <option name="AZURE_WEB_APP_SUBSCRIPTION_ID" value="f6fee227-ae8a-4470-9623-6f3db74c2817" />
     <option name="AZURE_WEB_APP_IS_CREATE_APP" value="0" />
     <option name="AZURE_WEB_APP_ID" value="/subscriptions/f6fee227-ae8a-4470-9623-6f3db74c2817/resourceGroups/home-cooking/providers/Microsoft.Web/sites/homecooking" />
-    <option name="AZURE_WEB_APP_NAME" value="webapp-200820140030" />
+    <option name="AZURE_WEB_APP_NAME" value="" />
     <option name="AZURE_WEB_APP_IS_CREATE_RESOURCE_GROUP" value="0" />
-    <option name="AZURE_WEB_APP_RESOURCE_GROUP_NAME" value="VstsRG-fluxcc-b1d2" />
+    <option name="AZURE_WEB_APP_RESOURCE_GROUP_NAME" value="" />
     <option name="AZURE_WEB_APP_OPERATING_SYSTEM" value="WINDOWS" />
     <option name="AZURE_WEB_APP_IS_CREATE_APP_SERVICE_PLAN" value="0" />
     <option name="AZURE_WEB_APP_SERVICE_PLAN_ID" value="/subscriptions/f6fee227-ae8a-4470-9623-6f3db74c2817/resourceGroups/home-cooking/providers/Microsoft.Web/serverfarms/ASP-homecooking-a151" />
-    <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="appsp-200820140030" />
+    <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="" />
     <option name="AZURE_WEB_APP_LOCATION" value="eastus" />
-    <option name="AZURE_WEB_APP_PRICING_TIER" value="S1" />
+    <option name="AZURE_WEB_APP_PRICING_TIER" value="B1" />
     <option name="AZURE_WEB_APP_NET_FRAMEWORK" value="4.7" />
     <option name="AZURE_WEB_APP_NET_CORE_RUNTIME" value="DOTNETCORE 2.1" />
     <option name="AZURE_SQL_DATABASE_SUBSCRIPTION_ID" value="f6fee227-ae8a-4470-9623-6f3db74c2817" />
