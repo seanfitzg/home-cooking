@@ -12,7 +12,7 @@ namespace HomeCooking.Api.Services
                 {
                     Id = 1,
                     Method = "Toast the bread, microwave the beans, butter the bread, pour beans over bread, sprinkle with cheese",
-                    Name = "Cheesy Beans on Toast",
+                    Name = "Cheesy Beans on Toast.",
                     Ingredients = new []
                     {
                         new Ingredient()

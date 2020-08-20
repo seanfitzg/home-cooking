@@ -28,14 +28,13 @@ namespace HomeCooking.Api
         {
             services.AddControllers();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
-            
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins(
-                            "http://localhost:3000");
+                        builder
+                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
                     });
             });
             
