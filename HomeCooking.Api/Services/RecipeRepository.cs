@@ -11,7 +11,7 @@ namespace HomeCooking.Api.Services
                 new Recipe
                 {
                     Id = 1,
-                    Method = "Toast the bread, nuke the beans, butter the bread, pour beans over bread, sprinkle with cheese",
+                    Method = "Toast the bread, microwave the beans, butter the bread, pour beans over bread, sprinkle with cheese",
                     Name = "Cheesy Beans on Toast",
                     Ingredients = new []
                     {
