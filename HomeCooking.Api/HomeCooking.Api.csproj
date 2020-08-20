@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>HomeCooking.api</RootNamespace>
+        <RootNamespace>HomeCooking.Api</RootNamespace>
     </PropertyGroup>
 
 

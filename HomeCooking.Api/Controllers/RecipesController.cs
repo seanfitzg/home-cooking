@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using HomeCooking.api.Models.DTOs;
-using HomeCooking.api.Services;
+using HomeCooking.Api.Models.DTOs;
+using HomeCooking.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HomeCooking.api.Controllers
+namespace HomeCooking.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HomeCooking.data.Models
+namespace HomeCooking.Api.Domain
 {
     public class Recipe
     {
