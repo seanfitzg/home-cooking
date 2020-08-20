@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using HomeCooking.Api.Domain;
+using HomeCooking.Domain.Entities;
 
-namespace HomeCooking.Api.Services
+namespace HomeCooking.Data
 {
-    class RecipeRepository : IRecipeRepository
+    public class RecipeRepository : IRecipeRepository
     {
         public IEnumerable<Recipe> GetAllRecipes()
         {

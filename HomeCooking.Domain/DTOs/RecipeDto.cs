@@ -1,4 +1,4 @@
-namespace HomeCooking.Api.Models.DTOs
+namespace HomeCooking.Domain.DTOs
 {
     public struct RecipeDto
     {

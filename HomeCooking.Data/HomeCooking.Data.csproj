@@ -1,14 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>HomeCooking.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HomeCooking.Data\HomeCooking.Data.csproj" />
       <ProjectReference Include="..\HomeCooking.Domain\HomeCooking.Domain.csproj" />
     </ItemGroup>
-
 
 </Project>

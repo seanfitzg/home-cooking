@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using HomeCooking.Api.Domain;
+using HomeCooking.Domain.Entities;
 
-namespace HomeCooking.Api.Services
+namespace HomeCooking.Data
 {
     public interface IRecipeRepository
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using HomeCooking.Api.Models.DTOs;
-using HomeCooking.Api.Services;
+using HomeCooking.Data;
+using HomeCooking.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeCooking.Api.Controllers
