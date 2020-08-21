@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeCooking.Data.Migrations
 {
     [DbContext(typeof(RecipeContext))]
-    [Migration("20200821130746_init")]
+    [Migration("20200821132559_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace HomeCooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Other");
+                    b.ToTable("Others");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Recipe", b =>
@@ -97,7 +97,7 @@ namespace HomeCooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Volume");
+                    b.ToTable("Volumes");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Weight", b =>
@@ -114,7 +114,7 @@ namespace HomeCooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Weight");
+                    b.ToTable("Weights");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Ingredient", b =>

@@ -10,7 +10,14 @@ namespace HomeCooking.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source=RecipeDb.db");
+            optionsBuilder.UseSqlite($"Data Source= RecipeDb.db");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Weight>().ToTable("Weights");
+            modelBuilder.Entity<Other>().ToTable("Others");
+            modelBuilder.Entity<Volume>().ToTable("Volumes");
         }
     }
 }

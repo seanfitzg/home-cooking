@@ -7,7 +7,7 @@ namespace HomeCooking.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Other",
+                name: "Others",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,7 +17,7 @@ namespace HomeCooking.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Other", x => x.Id);
+                    table.PrimaryKey("PK_Others", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,7 +35,7 @@ namespace HomeCooking.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Volume",
+                name: "Volumes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -44,11 +44,11 @@ namespace HomeCooking.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Volume", x => x.Id);
+                    table.PrimaryKey("PK_Volumes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Weight",
+                name: "Weights",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -58,7 +58,7 @@ namespace HomeCooking.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weight", x => x.Id);
+                    table.PrimaryKey("PK_Weights", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,9 +77,9 @@ namespace HomeCooking.Data.Migrations
                 {
                     table.PrimaryKey("PK_Ingredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingredients_Other_OtherId",
+                        name: "FK_Ingredients_Others_OtherId",
                         column: x => x.OtherId,
-                        principalTable: "Other",
+                        principalTable: "Others",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -89,15 +89,15 @@ namespace HomeCooking.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ingredients_Volume_VolumeId",
+                        name: "FK_Ingredients_Volumes_VolumeId",
                         column: x => x.VolumeId,
-                        principalTable: "Volume",
+                        principalTable: "Volumes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ingredients_Weight_WeightId",
+                        name: "FK_Ingredients_Weights_WeightId",
                         column: x => x.WeightId,
-                        principalTable: "Weight",
+                        principalTable: "Weights",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -129,16 +129,16 @@ namespace HomeCooking.Data.Migrations
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
-                name: "Other");
+                name: "Others");
 
             migrationBuilder.DropTable(
                 name: "Recipes");
 
             migrationBuilder.DropTable(
-                name: "Volume");
+                name: "Volumes");
 
             migrationBuilder.DropTable(
-                name: "Weight");
+                name: "Weights");
         }
     }
 }

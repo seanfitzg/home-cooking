@@ -64,7 +64,7 @@ namespace HomeCooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Other");
+                    b.ToTable("Others");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Recipe", b =>
@@ -95,7 +95,7 @@ namespace HomeCooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Volume");
+                    b.ToTable("Volumes");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Weight", b =>
@@ -112,7 +112,7 @@ namespace HomeCooking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Weight");
+                    b.ToTable("Weights");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Ingredient", b =>

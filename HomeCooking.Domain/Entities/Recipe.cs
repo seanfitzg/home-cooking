@@ -28,7 +28,6 @@ namespace HomeCooking.Domain.Entities
         public int Id { get; set; }
         public int Amount { get; set; }
         public string AmountType { get; set; }
-        
     }
 
     public class Volume
@@ -43,6 +42,5 @@ namespace HomeCooking.Domain.Entities
         public int Id { get; set; }
         public int Amount { get;  set; }
         public int Grams { get; set; }
-        
     }
 }
