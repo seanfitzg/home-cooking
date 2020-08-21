@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeCooking.Data.Migrations
 {
     [DbContext(typeof(RecipeContext))]
-    [Migration("20200821132559_init")]
+    [Migration("20200821143817_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,9 +81,28 @@ namespace HomeCooking.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("HomeCooking.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Volume", b =>
@@ -134,6 +153,13 @@ namespace HomeCooking.Data.Migrations
                     b.HasOne("HomeCooking.Domain.Entities.Weight", "Weight")
                         .WithMany()
                         .HasForeignKey("WeightId");
+                });
+
+            modelBuilder.Entity("HomeCooking.Domain.Entities.Recipe", b =>
+                {
+                    b.HasOne("HomeCooking.Domain.Entities.User", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
