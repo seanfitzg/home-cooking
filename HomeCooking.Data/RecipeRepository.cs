@@ -18,12 +18,20 @@ namespace HomeCooking.Data
                         new Ingredient()
                         {
                             FoodType = "Baked Beans",
-                            Other = new Other(1, "Can")
+                            Other = new Other()
+                            {
+                                Amount = 1,
+                                AmountType = "Can"
+                            }
                         },
                         new Ingredient()
                         {
                             FoodType = "Sliced Pan",
-                            Other = new Other(1, "Can")
+                            Other = new Other()
+                            {
+                                Amount = 1,
+                                AmountType = "Packet"
+                            }
                         },
                         new Ingredient()
                         {

@@ -4,53 +4,45 @@ namespace HomeCooking.Domain.Entities
 {
     public class Recipe
     {
+        public Recipe()
+        {
+            Ingredients = new List<Ingredient>();
+        }
         public string Name { get;  set; }
         public string Method { get;  set; }
         public IEnumerable<Ingredient> Ingredients { get;  set; }
         public int Id { get; set; }
     }
 
-    public struct Ingredient
+    public class Ingredient
     {
+        public int Id { get; set; }
         public string FoodType { get;  set; }
-        public Weight? Weight { get; set; }
-        public Volume? Volume { get; set; }
-        public Other? Other { get; set; }
+        public Weight Weight { get; set; }
+        public Volume Volume { get; set; }
+        public Other Other { get; set; }
     }
 
-    public struct Other
+    public class Other
     {
-        public int Amount { get; }
-        public string AmountType { get; }
-
-        public Other(int amount, string amountType)
-        {
-            Amount = amount;
-            AmountType = amountType;
-        }
+        public int Id { get; set; }
+        public int Amount { get; set; }
+        public string AmountType { get; set; }
+        
     }
 
-    public struct Volume
+    public class Volume
     {
+        public int Id { get; set; }
         public int Amount { get;  }
-        public int Millilitres { get; }
-        
-        public Volume(int amount, int millilitres)
-        {
-            Amount = amount;
-            Millilitres = millilitres;
-        }
+        public int Millilitres { get; set; }
     }
 
-    public struct Weight
+    public class Weight
     {
-        public int Amount { get; private set; }
-        public int Grams { get; private set; }
+        public int Id { get; set; }
+        public int Amount { get;  set; }
+        public int Grams { get; set; }
         
-        public Weight(int amount, int grams)
-        {
-            Amount = amount;
-            Grams = grams;
-        }
     }
 }
