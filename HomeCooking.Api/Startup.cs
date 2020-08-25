@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using HomeCooking.Api.Authentication;
 using HomeCooking.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HomeCooking.Api
 {
@@ -30,13 +35,38 @@ namespace HomeCooking.Api
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddCors(options =>
             {
+                
                 options.AddDefaultPolicy(
                     builder =>
                     {
                         builder
-                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
+                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                            .AllowAnyHeader();
                     });
             });
+            
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = ClaimTypes.NameIdentifier
+                };
+            });
+            
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:recipes", policy => policy.Requirements.Add(new HasScopeRequirement("read:recipes", domain)));
+            });
+
+            // register the scope authorization handler
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             
         }
 
@@ -52,7 +82,9 @@ namespace HomeCooking.Api
 
             app.UseRouting();
             app.UseCors();
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

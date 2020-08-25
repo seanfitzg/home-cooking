@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HomeCooking.Api.DTOs;
 using HomeCooking.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeCooking.Api.Controllers
@@ -18,6 +19,7 @@ namespace HomeCooking.Api.Controllers
         }
         
         [HttpGet]
+        [Authorize("read:recipes")]
         public IEnumerable<RecipeDto> Index()
         {
             var recipes = _recipeRepository.GetAllRecipes();
