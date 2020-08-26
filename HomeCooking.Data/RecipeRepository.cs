@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using HomeCooking.Domain.Entities;
 
 namespace HomeCooking.Data
@@ -44,6 +45,11 @@ namespace HomeCooking.Data
                     }
                 },
             };
+        }
+
+        public Task AddRecipe(Recipe recipe)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
