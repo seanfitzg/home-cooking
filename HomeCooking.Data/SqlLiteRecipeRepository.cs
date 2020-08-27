@@ -19,9 +19,10 @@ namespace HomeCooking.Data
             return _recipeContext.Recipes.ToList();
         }
 
-        public Task AddRecipe(Recipe recipe)
+        public void AddRecipe(Recipe recipe)
         {
-            throw new System.NotImplementedException();
+            _recipeContext.Recipes.Add(recipe);
+            _recipeContext.SaveChanges();
         }
     }
 }

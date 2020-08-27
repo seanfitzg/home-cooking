@@ -7,6 +7,6 @@ namespace HomeCooking.Data
     public interface IRecipeRepository
     {
         public IEnumerable<Recipe> GetAllRecipes();
-        Task AddRecipe(Recipe recipe);
+        void AddRecipe(Recipe recipe);
     }
 }

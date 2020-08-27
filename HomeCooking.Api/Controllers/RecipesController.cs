@@ -21,7 +21,7 @@ namespace HomeCooking.Api.Controllers
         }
         
         [HttpGet]
-        // [Authorize("read:recipes")]
+        [Authorize("read:recipes")]
         public IEnumerable<RecipeListDto> Index()
         {
             var recipes = _recipeRepository.GetAllRecipes();
@@ -29,15 +29,15 @@ namespace HomeCooking.Api.Controllers
         }       
         
         [HttpPost]
-        // [Authorize("read:recipes")]
-        public async Task<IActionResult> PostRestaurant([FromBody] Recipe recipe)
+        [Authorize("read:recipes")]
+        public IActionResult PostRestaurant([FromBody] Recipe recipe)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _recipeRepository.AddRecipe(recipe);
+            _recipeRepository.AddRecipe(recipe);
 
             return CreatedAtAction("Index", new { id = recipe.Id }, recipe);
         }
