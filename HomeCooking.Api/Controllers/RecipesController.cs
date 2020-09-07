@@ -25,7 +25,7 @@ namespace HomeCooking.Api.Controllers
         public IEnumerable<RecipeListDto> Index()
         {
             var recipes = _recipeRepository.GetAllRecipes();
-            return recipes.Select(r => new RecipeListDto(r.Id, r.Name));
+            return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
         }       
         
         [HttpPost]

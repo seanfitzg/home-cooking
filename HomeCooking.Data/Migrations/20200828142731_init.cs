@@ -68,6 +68,7 @@ namespace HomeCooking.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Method = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

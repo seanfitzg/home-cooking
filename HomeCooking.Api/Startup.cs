@@ -38,10 +38,12 @@ namespace HomeCooking.Api
         {
             services.AddControllers();
             services.AddScoped<IRecipeRepository, SqlLiteRecipeRepository>();
-            services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>();
+            services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>(options =>
+            {
+                options.EnableSensitiveDataLogging();
+            });
             services.AddCors(options =>
             {
-                
                 options.AddDefaultPolicy(
                     builder =>
                     {
