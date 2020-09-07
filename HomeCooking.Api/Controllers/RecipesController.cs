@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,8 +25,16 @@ namespace HomeCooking.Api.Controllers
         [Authorize("read:recipes")]
         public IEnumerable<RecipeListDto> Index()
         {
-            var recipes = _recipeRepository.GetAllRecipes();
-            return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
+            try
+            {
+                var recipes = _recipeRepository.GetAllRecipes();
+                return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }       
         
         [HttpPost]
@@ -41,5 +50,8 @@ namespace HomeCooking.Api.Controllers
 
             return CreatedAtAction("Index", new { id = recipe.Id }, recipe);
         }
+        
+        [Route("/error")]
+        public IActionResult Error() => Problem();
     }
 }
