@@ -46,10 +46,11 @@ namespace HomeCooking.Api
             {
                 options.AddDefaultPolicy(
                     builder =>
-                    {
+                    { ;
                         builder
-                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || 
-                                                          new Uri(origin).Host == "flux-home-cooking.herokuapp.com")
+                            // .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || 
+                            //                               new Uri(origin).Host == "flux-home-cooking.herokuapp.com")
+                            .SetIsOriginAllowed(origin => true)
                             .AllowAnyHeader();
                     });
             });
