@@ -23,7 +23,7 @@ namespace HomeCooking.Data
         {
             optionsBuilder
                 .UseLoggerFactory(ConsoleLoggerFactory)
-                .UseSqlite($"Data Source= RecipeDb.db");
+                .UseSqlite($"Data Source=RecipeDb.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

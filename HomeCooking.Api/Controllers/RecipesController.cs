@@ -7,6 +7,7 @@ using HomeCooking.Data;
 using HomeCooking.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Ocsp;
 
 namespace HomeCooking.Api.Controllers
 {
@@ -31,7 +32,7 @@ namespace HomeCooking.Api.Controllers
                 return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
             }
             catch (Exception e)
-            {
+            { 
                 Console.WriteLine(e);
                 throw;
             }
