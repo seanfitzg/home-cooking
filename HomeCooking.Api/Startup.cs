@@ -56,7 +56,7 @@ namespace HomeCooking.Api
                     });
             });
             
-            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            var domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
