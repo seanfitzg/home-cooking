@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,7 @@ namespace HomeCooking.Api
                         builder
                             .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || 
                                                           new Uri(origin).Host == "flux-home-cooking.herokuapp.com")
+                            .WithMethods(HttpMethods.Put, HttpMethods.Post)
                             .AllowAnyHeader();
                     });
             });

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,22 @@ namespace HomeCooking.Data
         {
             _recipeContext.Recipes.Add(recipe);
             _recipeContext.SaveChanges();
+        }
+
+        public void UpdateRecipe(Recipe recipe)
+        {
+            _recipeContext.Update(recipe);
+            _recipeContext.SaveChanges();
+        }
+
+        public Recipe GetById(int recipeId)
+        {
+            var recipe = _recipeContext.Recipes.SingleOrDefault(r => r.Id == recipeId);
+            if (recipe == null)
+            {
+                throw new ApplicationException("Recipe not found"); 
+            }
+            return recipe;
         }
     }
 }

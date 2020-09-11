@@ -38,6 +38,22 @@ namespace HomeCooking.Api.Controllers
             }
         }       
         
+        [HttpGet]
+        [Route("{recipeId}")]
+        [Authorize("read:recipes")]
+        public Recipe GetById(int recipeId)
+        {
+            try
+            {
+                return _recipeRepository.GetById(recipeId);
+            }
+            catch (Exception e)
+            { 
+                Console.WriteLine(e);
+                throw;
+            }
+        }      
+        
         [HttpPost]
         [Authorize("read:recipes")]
         public IActionResult PostRestaurant([FromBody] Recipe recipe)
@@ -50,6 +66,18 @@ namespace HomeCooking.Api.Controllers
             _recipeRepository.AddRecipe(recipe);
 
             return CreatedAtAction("Index", new { id = recipe.Id }, recipe);
+        }
+        
+        [HttpPut]
+        [Authorize("read:recipes")]
+        public IActionResult UpdateRestaurant([FromBody] Recipe recipe)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _recipeRepository.UpdateRecipe(recipe);
+            return this.Ok();
         }
         
         [Route("/error")]

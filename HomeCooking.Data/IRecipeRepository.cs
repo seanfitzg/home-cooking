@@ -8,5 +8,7 @@ namespace HomeCooking.Data
     {
         public IEnumerable<Recipe> GetAllRecipes();
         void AddRecipe(Recipe recipe);
+        void UpdateRecipe(Recipe recipe);
+        Recipe GetById(int recipeId);
     }
 }

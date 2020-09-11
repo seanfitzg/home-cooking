@@ -4,7 +4,7 @@ using HomeCooking.Domain.Entities;
 
 namespace HomeCooking.Data
 {
-    public class RecipeRepository : IRecipeRepository
+    public class InMemoryRecipeRepository : IRecipeRepository
     {
         public IEnumerable<Recipe> GetAllRecipes()
         {
@@ -48,6 +48,16 @@ namespace HomeCooking.Data
         }
 
         public void AddRecipe(Recipe recipe)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateRecipe(Recipe recipe)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Recipe GetById(int recipeId)
         {
             throw new System.NotImplementedException();
         }
