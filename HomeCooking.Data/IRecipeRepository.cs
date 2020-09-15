@@ -6,7 +6,7 @@ namespace HomeCooking.Data
 {
     public interface IRecipeRepository
     {
-        public IEnumerable<Recipe> GetAllRecipes();
+        public IEnumerable<Recipe> GetAllRecipes(string userId);
         void AddRecipe(Recipe recipe);
         void UpdateRecipe(Recipe recipe);
         Recipe GetById(int recipeId);

@@ -15,9 +15,9 @@ namespace HomeCooking.Data
             _recipeContext = recipeContext;
         }
         
-        public IEnumerable<Recipe> GetAllRecipes()
+        public IEnumerable<Recipe> GetAllRecipes(string userId)
         {
-            return _recipeContext.Recipes.ToList();
+            return _recipeContext.Recipes.Where(r => r.UserId == userId).ToList();
         }
 
         public void AddRecipe(Recipe recipe)

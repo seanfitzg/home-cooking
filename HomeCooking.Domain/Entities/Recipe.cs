@@ -8,6 +8,8 @@ namespace HomeCooking.Domain.Entities
         {
             Ingredients = new List<Ingredient>();
         }
+
+        public string UserId { get; set; }
         public string Name { get;  set; }
         public string Method { get;  set; }
         public string Description { get;  set; }

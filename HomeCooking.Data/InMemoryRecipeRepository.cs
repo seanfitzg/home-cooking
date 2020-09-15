@@ -6,10 +6,10 @@ namespace HomeCooking.Data
 {
     public class InMemoryRecipeRepository : IRecipeRepository
     {
-        public IEnumerable<Recipe> GetAllRecipes()
+        public IEnumerable<Recipe> GetAllRecipes(string userId)
         {
             return new [] {
-                new Recipe
+                new Recipe()
                 {
                     Id = 1,
                     Method = "Toast the bread, microwave the beans, butter the bread, pour beans over bread, sprinkle with cheese",

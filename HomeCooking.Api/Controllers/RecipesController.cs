@@ -28,7 +28,7 @@ namespace HomeCooking.Api.Controllers
         {
             try
             {
-                var recipes = _recipeRepository.GetAllRecipes();
+                var recipes = _recipeRepository.GetAllRecipes(HttpContext.User.Identity.Name);
                 return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
             }
             catch (Exception e)
@@ -63,6 +63,7 @@ namespace HomeCooking.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            recipe.UserId = HttpContext.User.Identity.Name;
             _recipeRepository.AddRecipe(recipe);
 
             return CreatedAtAction("Index", new { id = recipe.Id }, recipe);
@@ -76,6 +77,7 @@ namespace HomeCooking.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            recipe.UserId = HttpContext.User.Identity.Name;
             _recipeRepository.UpdateRecipe(recipe);
             return this.Ok();
         }
