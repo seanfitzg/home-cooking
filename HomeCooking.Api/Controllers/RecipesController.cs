@@ -54,6 +54,22 @@ namespace HomeCooking.Api.Controllers
             }
         }      
         
+        [HttpDelete]
+        [Authorize("read:recipes")]
+        public OkResult Delete([FromBody] Recipe recipe)
+        {
+            try
+            {
+                _recipeRepository.Delete(recipe);
+                return Ok();
+            }
+            catch (Exception e)
+            { 
+                Console.WriteLine(e);
+                throw;
+            }
+        }  
+        
         [HttpPost]
         [Authorize("read:recipes")]
         public IActionResult PostRestaurant([FromBody] Recipe recipe)

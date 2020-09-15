@@ -51,7 +51,7 @@ namespace HomeCooking.Api
                         builder
                             .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || 
                                                           new Uri(origin).Host == "flux-home-cooking.herokuapp.com")
-                            .WithMethods(HttpMethods.Put, HttpMethods.Post)
+                            .WithMethods(HttpMethods.Put, HttpMethods.Post, HttpMethods.Delete)
                             .AllowAnyHeader();
                     });
             });

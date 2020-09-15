@@ -41,5 +41,11 @@ namespace HomeCooking.Data
             }
             return recipe;
         }
+
+        public void Delete(Recipe recipe)
+        {
+            _recipeContext.Recipes.Remove(recipe);
+            _recipeContext.SaveChanges();
+        }
     }
 }

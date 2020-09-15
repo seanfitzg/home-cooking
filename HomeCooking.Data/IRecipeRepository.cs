@@ -10,5 +10,6 @@ namespace HomeCooking.Data
         void AddRecipe(Recipe recipe);
         void UpdateRecipe(Recipe recipe);
         Recipe GetById(int recipeId);
+        void Delete(Recipe recipe);
     }
 }

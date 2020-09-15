@@ -61,5 +61,10 @@ namespace HomeCooking.Data
         {
             throw new System.NotImplementedException();
         }
+
+        public void Delete(Recipe recipe)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
