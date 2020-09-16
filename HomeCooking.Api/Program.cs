@@ -14,18 +14,8 @@ namespace HomeCooking.Api
 {
     public class Program
     {
-        private static RecipeContext _recipeContext = new RecipeContext();
-        
         public static void Main(string[] args)
         {
-            // _recipeContext.Database.EnsureCreated();
-            // _recipeContext.Users.Add(new User()
-            // {
-            //     Name = "Sean"
-            // });
-            // _recipeContext.SaveChanges();
-            // var users = _recipeContext.Users.ToList();
-            //var x = _recipeContext.Recipes.Where(recipe => EF.Functions.Like)
             CreateHostBuilder(args).Build().Run();
         }
 
