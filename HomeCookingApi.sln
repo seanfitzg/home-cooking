@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Domain", "HomeC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Data", "HomeCooking.Data\HomeCooking.Data.csproj", "{25A96594-6942-457C-B7EB-79B01D1FB25F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Domain.Tests", "HomeCooking.Domain.Tests\HomeCooking.Domain.Tests.csproj", "{738CB1FF-ED31-423E-9F2D-728099C86B49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Api.Tests", "HomeCooking.Api.Tests\HomeCooking.Api.Tests.csproj", "{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{25A96594-6942-457C-B7EB-79B01D1FB25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25A96594-6942-457C-B7EB-79B01D1FB25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25A96594-6942-457C-B7EB-79B01D1FB25F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{738CB1FF-ED31-423E-9F2D-728099C86B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{738CB1FF-ED31-423E-9F2D-728099C86B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{738CB1FF-ED31-423E-9F2D-728099C86B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{738CB1FF-ED31-423E-9F2D-728099C86B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

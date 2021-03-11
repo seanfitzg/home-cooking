@@ -1,0 +1,10 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e8083799_002D374c_002D4cc7_002Da0a7_002D27bf3885eb3e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;HomeCooking.Domain.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="C:\projects\HomeCookingApi\HomeCooking.Domain.Tests" Presentation="&amp;lt;HomeCooking.Domain.Tests&amp;gt;" /&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78::.NETCoreApp,Version=v3.1::HomeCooking.Api.Tests.ApiTests.Test1&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78::.NETCoreApp,Version=v3.1::HomeCooking.Api.Tests.ApiTests&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Or&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
