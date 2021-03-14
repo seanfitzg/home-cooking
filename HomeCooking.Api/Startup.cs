@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using HomeCooking.Api.Authentication;
 using HomeCooking.Data;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -43,19 +44,37 @@ namespace HomeCooking.Api
             {
                 options.EnableSensitiveDataLogging();
             });
+            
+            services.AddMediatR(typeof(Application.CreateRecipeCommand), typeof(Application.CreateRecipeHandler));
+            
+            ConfigureCors(services);
+            
+            ConfigureOAuth(services);
+
+            // register the scope authorization handler
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+            
+        }
+
+        private static void ConfigureCors(IServiceCollection services)
+        {
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
-                    { ;
+                    {
+                        ;
                         builder
-                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" || 
+                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" ||
                                                           new Uri(origin).Host == "flux-home-cooking.herokuapp.com")
                             .WithMethods(HttpMethods.Put, HttpMethods.Post, HttpMethods.Delete)
                             .AllowAnyHeader();
                     });
             });
-            
+        }
+
+        private void ConfigureOAuth(IServiceCollection services)
+        {
             var domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
             {
@@ -70,15 +89,12 @@ namespace HomeCooking.Api
                     NameClaimType = ClaimTypes.NameIdentifier
                 };
             });
-            
+
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("read:recipes", policy => policy.Requirements.Add(new HasScopeRequirement("read:recipes", domain)));
+                options.AddPolicy("read:recipes",
+                    policy => policy.Requirements.Add(new HasScopeRequirement("read:recipes", domain)));
             });
-
-            // register the scope authorization handler
-            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

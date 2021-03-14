@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeCooking.Api.DTOs;
+using HomeCooking.Application;
 using HomeCooking.Data;
 using HomeCooking.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Ocsp;
@@ -16,10 +18,12 @@ namespace HomeCooking.Api.Controllers
     public class RecipesController : Controller
     {
         private readonly IRecipeRepository _recipeRepository;
+        private readonly IMediator _mediator;
 
-        public RecipesController(IRecipeRepository recipeRepository)
+        public RecipesController(IRecipeRepository recipeRepository, IMediator mediator)
         {
             _recipeRepository = recipeRepository;
+            _mediator = mediator;
         }
         
         [HttpGet]
@@ -41,11 +45,11 @@ namespace HomeCooking.Api.Controllers
         [HttpGet]
         [Route("{recipeId}")]
         [Authorize("read:recipes")]
-        public Recipe GetById(int recipeId)
+        public async Task<Recipe> GetById(int recipeId)
         {
             try
             {
-                return _recipeRepository.GetById(recipeId);
+                return await _mediator.Send(new GetRecipeCommand(recipeId));
             }
             catch (Exception e)
             { 
@@ -55,12 +59,13 @@ namespace HomeCooking.Api.Controllers
         }      
         
         [HttpDelete]
+        [Route("{recipeId}")]        
         [Authorize("read:recipes")]
-        public OkResult Delete([FromBody] Recipe recipe)
+        public async Task<OkResult> Delete(int recipeId)
         {
             try
             {
-                _recipeRepository.Delete(recipe);
+                await _mediator.Send(new DeleteRecipeCommand(recipeId));
                 return Ok();
             }
             catch (Exception e)
@@ -72,30 +77,30 @@ namespace HomeCooking.Api.Controllers
         
         [HttpPost]
         [Authorize("read:recipes")]
-        public IActionResult PostRestaurant([FromBody] Recipe recipe)
+        public async Task<IActionResult> PostRecipe([FromBody] CreateRecipeCommand createRecipeCommand)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            recipe.UserId = HttpContext.User.Identity.Name;
-            _recipeRepository.AddRecipe(recipe);
-
-            return CreatedAtAction("Index", new { id = recipe.Id }, recipe);
+            createRecipeCommand.UserId = HttpContext.User.Identity.Name;
+            var id = await _mediator.Send(createRecipeCommand);
+            
+            return CreatedAtAction("Index", new { id }, id);
         }
         
         [HttpPut]
         [Authorize("read:recipes")]
-        public IActionResult UpdateRestaurant([FromBody] Recipe recipe)
+        public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeCommand updateRecipeCommand)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            recipe.UserId = HttpContext.User.Identity.Name;
-            _recipeRepository.UpdateRecipe(recipe);
-            return this.Ok();
+            updateRecipeCommand.UserId = HttpContext.User.Identity.Name;
+            await _mediator.Send(updateRecipeCommand);
+            return Ok();
         }
         
         [Route("/error")]

@@ -20,10 +20,10 @@ namespace HomeCooking.Data
             return _recipeContext.Recipes.Where(r => r.UserId == userId).ToList();
         }
 
-        public void AddRecipe(Recipe recipe)
+        public int AddRecipe(Recipe recipe)
         {
             _recipeContext.Recipes.Add(recipe);
-            _recipeContext.SaveChanges();
+            return _recipeContext.SaveChanges();
         }
 
         public void UpdateRecipe(Recipe recipe)

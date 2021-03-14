@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoFixture;
+using HomeCooking.Application;
 using HomeCooking.Data;
 using HomeCooking.Domain.Entities;
 
@@ -14,13 +16,18 @@ namespace HomeCooking.Api.Tests
         {
             _recipes = new List<Recipe>()
             {
-                CreateRecipe()
+                CreateRecipe(1)
             };
         }
 
-        public static Recipe CreateRecipe()
+        public static CreateRecipeCommand BuildCreateRecipeCommand()
         {
-            return Fixture.Build<Recipe>().Create();
+            return Fixture.Build<CreateRecipeCommand>().Create();
+        }
+        
+        public static Recipe CreateRecipe(int id)
+        {
+            return Fixture.Build<Recipe>().With(p => p.Id, id).Create();
         }
         
         public IEnumerable<Recipe> GetAllRecipes(string userId)
@@ -28,24 +35,28 @@ namespace HomeCooking.Api.Tests
             return _recipes;
         }
 
-        public void AddRecipe(Recipe recipe)
+        public int AddRecipe(Recipe recipe)
         {
+            recipe.Id = Fixture.Create<int>();
             _recipes.Add(recipe);
+            return recipe.Id;
         }
 
         public void UpdateRecipe(Recipe recipe)
         {
-            throw new System.NotImplementedException();
+            var originalRecipe = _recipes.Single(p => p.Id == recipe.Id);
+            var index = _recipes.IndexOf(originalRecipe);
+            _recipes[index] = recipe;
         }
 
         public Recipe GetById(int recipeId)
         {
-            throw new System.NotImplementedException();
+            return _recipes.SingleOrDefault(r => r.Id == recipeId);
         }
 
         public void Delete(Recipe recipe)
         {
-            throw new System.NotImplementedException();
+            _recipes.Remove(recipe);
         }
     }
 }

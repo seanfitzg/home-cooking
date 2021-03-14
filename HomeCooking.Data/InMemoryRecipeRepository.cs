@@ -47,7 +47,7 @@ namespace HomeCooking.Data
             };
         }
 
-        public void AddRecipe(Recipe recipe)
+        public int AddRecipe(Recipe recipe)
         {
             throw new System.NotImplementedException();
         }

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Domain.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Api.Tests", "HomeCooking.Api.Tests\HomeCooking.Api.Tests.csproj", "{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Application", "HomeCooking.Application\HomeCooking.Application.csproj", "{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
