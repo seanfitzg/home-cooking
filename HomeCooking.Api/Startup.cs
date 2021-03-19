@@ -49,7 +49,7 @@ namespace HomeCooking.Api
             
             ConfigureCors(services);
             
-            ConfigureOAuth(services);
+            //ConfigureOAuth(services);
 
             // register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

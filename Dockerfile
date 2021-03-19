@@ -16,5 +16,9 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "HomeCooking.Api.dll"]
 
-#docker build -t recipes .
-#docker run -d -p 5000:80 --name recipeapp recipes
+# docker build -t recipe-app:dev .
+# docker run -d -p 5000:80 --name recipe-app recipe-app:dev
+
+
+# to run without docker:
+# dapr run --app-id recipe-app --app-port 80 dotnet run

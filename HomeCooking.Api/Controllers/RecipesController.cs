@@ -27,7 +27,7 @@ namespace HomeCooking.Api.Controllers
         }
         
         [HttpGet]
-        [Authorize("read:recipes")]
+        //[Authorize("read:recipes")]
         public IEnumerable<RecipeListDto> Index()
         {
             try
@@ -44,7 +44,7 @@ namespace HomeCooking.Api.Controllers
         
         [HttpGet]
         [Route("{recipeId}")]
-        [Authorize("read:recipes")]
+        // [Authorize("read:recipes")]
         public async Task<Recipe> GetById(int recipeId)
         {
             try
@@ -60,7 +60,7 @@ namespace HomeCooking.Api.Controllers
         
         [HttpDelete]
         [Route("{recipeId}")]        
-        [Authorize("read:recipes")]
+        // [Authorize("read:recipes")]
         public async Task<OkResult> Delete(int recipeId)
         {
             try
@@ -76,7 +76,7 @@ namespace HomeCooking.Api.Controllers
         }  
         
         [HttpPost]
-        [Authorize("read:recipes")]
+        // [Authorize("read:recipes")]
         public async Task<IActionResult> PostRecipe([FromBody] CreateRecipeCommand createRecipeCommand)
         {
             if (!ModelState.IsValid)
@@ -91,7 +91,7 @@ namespace HomeCooking.Api.Controllers
         }
         
         [HttpPut]
-        [Authorize("read:recipes")]
+        // [Authorize("read:recipes")]
         public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeCommand updateRecipeCommand)
         {
             if (!ModelState.IsValid)
