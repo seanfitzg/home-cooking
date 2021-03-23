@@ -12,4 +12,7 @@
     <None Include=".dockerignore" />
     <None Include=".env" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dockerfile" />
+  </ItemGroup>
 </Project>
