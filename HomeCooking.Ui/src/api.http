@@ -1,0 +1,13 @@
+GET /recipes HTTP/1.1
+Host: localhost:5000
+Connection: keep-alive
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhPVkxZR3F0OEFQVE5uT3dlTW9IWiJ9.eyJpc3MiOiJodHRwczovL2hvbWUtY29va2luZy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY0NTM4NjgwODc3ZmQwMDY3NmI1NTU4IiwiYXVkIjpbImh0dHBzOi8vaG9tZS1jb29raW5nL2FwaSIsImh0dHBzOi8vaG9tZS1jb29raW5nLmV1LmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1OTg2MjU4MTQsImV4cCI6MTU5ODcxMjIxNCwiYXpwIjoiU3BIRTR0QTU0WFNVY21yTzlBMXBrSzM2QVcwclNNU1oiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIHJlYWQ6cmVjaXBlcyJ9.Y_fdU0WASzhmtoP1eO4I47Fb8VGmqUXHVfZ28VwAhWQwx5kIeuNd8zZItSNCON-8lfX2V3gypq35VYp4Qm3IPXiHipd9P4zUhkOC8AjQ3FgtQ5KULzQ152pgDyPodoc5uKLmfxtC2avHCZQAQ70hudSy_hefF1drNpq5yCfJAJOtrQUT-MA377oTCGPQMvnWqKjhzGOi6Umh5qymPrBoqZzWJL2arJZy7WnEVu9XyzZ1me0I_YoyVVjcSE45As9VC14kMHk-g5rClNxTXcZ6TKr3BeAa-Ur-yoTbMUjznOWYPdT4VB8H3MhYaAKzjtIO3vxNKSqRJneTKNna1HVr1Q
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36
+Accept: */*
+Origin: http://localhost:3000
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:3000/recipes
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,la;q=0.7

@@ -12,6 +12,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Api.Tests", "Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Application", "HomeCooking.Application\HomeCooking.Application.csproj", "{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Logging", "HomeCooking.Logging\HomeCooking.Logging.csproj", "{3E4518C2-88ED-4B17-8FED-16EA2C8A303A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{7DFA7697-B7E5-4808-A217-AA49A61D50CB}"
+ProjectSection(SolutionItems) = preProject
+	dapr\dapr-components.yaml = dapr\dapr-components.yaml
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docker-compose", "docker-compose.dcproj", "{250B824E-6A72-4D6E-8287-CC73F40410E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +51,12 @@ Global
 		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEFB0D7D-3643-4F0A-BF53-430DA6C89CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E4518C2-88ED-4B17-8FED-16EA2C8A303A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E4518C2-88ED-4B17-8FED-16EA2C8A303A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E4518C2-88ED-4B17-8FED-16EA2C8A303A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E4518C2-88ED-4B17-8FED-16EA2C8A303A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{250B824E-6A72-4D6E-8287-CC73F40410E9}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
