@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapr.Client;
 using HomeCooking.Api.DTOs;
 using HomeCooking.Application;
 using HomeCooking.Data;
@@ -9,7 +10,6 @@ using HomeCooking.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Ocsp;
 
 namespace HomeCooking.Api.Controllers
 {
@@ -19,15 +19,17 @@ namespace HomeCooking.Api.Controllers
     {
         private readonly IRecipeRepository _recipeRepository;
         private readonly IMediator _mediator;
+        private readonly DaprClient _daprClient;
 
-        public RecipesController(IRecipeRepository recipeRepository, IMediator mediator)
+        public RecipesController(IRecipeRepository recipeRepository, IMediator mediator, DaprClient daprClient)
         {
             _recipeRepository = recipeRepository;
             _mediator = mediator;
+            _daprClient = daprClient;
         }
         
         [HttpGet]
-        //[Authorize("read:recipes")]
+        [Authorize("read:recipes")]
         public IEnumerable<RecipeListDto> Index()
         {
             try
@@ -44,12 +46,14 @@ namespace HomeCooking.Api.Controllers
         
         [HttpGet]
         [Route("{recipeId}")]
-        // [Authorize("read:recipes")]
+        [Authorize("read:recipes")]
         public async Task<Recipe> GetById(int recipeId)
         {
             try
             {
-                return await _mediator.Send(new GetRecipeCommand(recipeId));
+                var recipe = await _mediator.Send(new GetRecipeCommand(recipeId));
+                await _daprClient.PublishEventAsync<Recipe>("pubsub", "newRecipe", recipe);
+                return recipe;
             }
             catch (Exception e)
             { 
@@ -60,7 +64,7 @@ namespace HomeCooking.Api.Controllers
         
         [HttpDelete]
         [Route("{recipeId}")]        
-        // [Authorize("read:recipes")]
+        [Authorize("read:recipes")]
         public async Task<OkResult> Delete(int recipeId)
         {
             try
@@ -76,7 +80,7 @@ namespace HomeCooking.Api.Controllers
         }  
         
         [HttpPost]
-        // [Authorize("read:recipes")]
+        [Authorize("read:recipes")]
         public async Task<IActionResult> PostRecipe([FromBody] CreateRecipeCommand createRecipeCommand)
         {
             if (!ModelState.IsValid)
@@ -86,12 +90,12 @@ namespace HomeCooking.Api.Controllers
 
             createRecipeCommand.UserId = HttpContext.User.Identity.Name;
             var id = await _mediator.Send(createRecipeCommand);
-            
+
             return CreatedAtAction("Index", new { id }, id);
         }
         
         [HttpPut]
-        // [Authorize("read:recipes")]
+        [Authorize("read:recipes")]
         public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeCommand updateRecipeCommand)
         {
             if (!ModelState.IsValid)

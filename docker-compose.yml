@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+      
+  homecooking-ui:
+    image: ${DOCKER_REGISTRY-}homecooking-ui:dev
+    build:
+      context: .
+      dockerfile: HomeCooking.Ui/Dockerfile
+    ports:
+      - "3000:3000"
+
+  homecooking-ui-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "homecooking-ui", "-app-port", "80" ]
+    depends_on:
+      - homecooking-ui
+    network_mode: "service:homecooking-ui"
+
+  homecooking-app:
+    image: ${DOCKER_REGISTRY-}homecooking-app:dev
+    build:
+      context: .
+      dockerfile: HomeCooking.Api/Dockerfile
+    ports:
+      - "5000:80"
+      - "3500:3500" 
+
+  homecooking-app-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", 
+                "-app-id", "homecooking-app", 
+                "-app-port", "80",
+                "-components-path", "/dapr"       
+              ]
+    volumes:
+      - "./dapr/:/dapr"  
+    depends_on:
+      - homecooking-app
+    network_mode: "service:homecooking-app"

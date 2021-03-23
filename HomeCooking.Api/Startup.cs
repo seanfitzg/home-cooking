@@ -38,7 +38,7 @@ namespace HomeCooking.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddDapr();
             services.AddScoped<IRecipeRepository, SqlLiteRecipeRepository>();
             services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>(options =>
             {
@@ -49,7 +49,7 @@ namespace HomeCooking.Api
             
             ConfigureCors(services);
             
-            //ConfigureOAuth(services);
+            ConfigureOAuth(services);
 
             // register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
@@ -105,12 +105,18 @@ namespace HomeCooking.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCloudEvents();
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapSubscribeHandler();
+                endpoints.MapControllers();
+            });
         }
         
     }
