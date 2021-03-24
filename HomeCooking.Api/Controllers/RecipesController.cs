@@ -7,9 +7,11 @@ using HomeCooking.Api.DTOs;
 using HomeCooking.Application;
 using HomeCooking.Data;
 using HomeCooking.Domain.Entities;
+using HomeCooking.Domain.Events;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace HomeCooking.Api.Controllers
 {
@@ -20,12 +22,14 @@ namespace HomeCooking.Api.Controllers
         private readonly IRecipeRepository _recipeRepository;
         private readonly IMediator _mediator;
         private readonly DaprClient _daprClient;
+        private readonly ILogger<RecipesController> _logger;
 
-        public RecipesController(IRecipeRepository recipeRepository, IMediator mediator, DaprClient daprClient)
+        public RecipesController(IRecipeRepository recipeRepository, IMediator mediator, DaprClient daprClient, ILogger<RecipesController> logger)
         {
             _recipeRepository = recipeRepository;
             _mediator = mediator;
             _daprClient = daprClient;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -52,7 +56,6 @@ namespace HomeCooking.Api.Controllers
             try
             {
                 var recipe = await _mediator.Send(new GetRecipeCommand(recipeId));
-                await _daprClient.PublishEventAsync<Recipe>("pubsub", "newRecipe", recipe);
                 return recipe;
             }
             catch (Exception e)
@@ -90,7 +93,8 @@ namespace HomeCooking.Api.Controllers
 
             createRecipeCommand.UserId = HttpContext.User.Identity.Name;
             var id = await _mediator.Send(createRecipeCommand);
-
+            await _daprClient.PublishEventAsync("pubsub", "newrecipe", new RecipeCreated(id, createRecipeCommand.Name));
+            _logger.Log(LogLevel.Information, $"Recipe created: {id}.");
             return CreatedAtAction("Index", new { id }, id);
         }
         

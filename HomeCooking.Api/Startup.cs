@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Math.EC;
 
 namespace HomeCooking.Api
 {
@@ -53,7 +54,6 @@ namespace HomeCooking.Api
 
             // register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-            
         }
 
         private static void ConfigureCors(IServiceCollection services)
@@ -100,6 +100,7 @@ namespace HomeCooking.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

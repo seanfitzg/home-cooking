@@ -56,8 +56,11 @@ services:
     image: "daprio/daprd:latest"
     command: [ "./daprd",
                "-app-id", "logging-app",
-               "-app-port", "80"
+               "-app-port", "80",
+               "-components-path", "/dapr"
     ]
+    volumes:
+      - "./dapr/:/dapr"
     depends_on:
       - logging-app
     network_mode: "service:logging-app"

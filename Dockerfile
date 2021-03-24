@@ -29,3 +29,5 @@ ENTRYPOINT ["dotnet", "HomeCooking.Api.dll"]
 
 # to run without docker:
 # dapr run --app-id homecooking-app --app-port 80 --dapr-http-port 3500 dotnet run
+
+# docker build -f HomeCooking.Logging/Dockerfile -t logging-app:dev . & docker build -t homecooking-app:dev . & docker-compose up
