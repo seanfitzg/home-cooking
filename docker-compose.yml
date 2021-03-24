@@ -5,8 +5,8 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
       
   homecooking-ui:
     image: ${DOCKER_REGISTRY-}homecooking-ui:dev
@@ -30,7 +30,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:80"
-      - "3500:3500" 
 
   homecooking-app-dapr:
     image: "daprio/daprd:latest"
@@ -44,3 +43,21 @@ services:
     depends_on:
       - homecooking-app
     network_mode: "service:homecooking-app"
+
+  logging-app:
+    image: ${DOCKER_REGISTRY-}logging-app:dev
+    build:
+      context: ./HomeCooking.Logging
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
+
+  logging-app-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd",
+               "-app-id", "logging-app",
+               "-app-port", "80"
+    ]
+    depends_on:
+      - logging-app
+    network_mode: "service:logging-app"

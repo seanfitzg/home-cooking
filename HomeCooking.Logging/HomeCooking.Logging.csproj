@@ -14,4 +14,8 @@
       <ProjectReference Include="..\HomeCooking.Domain\HomeCooking.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Dockerfile" />
+    </ItemGroup>
+
 </Project>
