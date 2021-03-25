@@ -24,7 +24,7 @@ namespace HomeCooking.Logging.Controllers
             _logger = logger;
         }
         
-        [Topic("pubsub", "newrecipe")]
+        [Topic("pubsub-homecooking", "newrecipe")]
         [ApiConventionMethod(typeof(DefaultApiConventions), 
             nameof(DefaultApiConventions.Post))]
         [HttpPost]

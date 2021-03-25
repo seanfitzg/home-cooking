@@ -93,7 +93,7 @@ namespace HomeCooking.Api.Controllers
 
             createRecipeCommand.UserId = HttpContext.User.Identity.Name;
             var id = await _mediator.Send(createRecipeCommand);
-            await _daprClient.PublishEventAsync("pubsub", "newrecipe", new RecipeCreated(id, createRecipeCommand.Name));
+            await _daprClient.PublishEventAsync("pubsub-homecooking", "newrecipe", new RecipeCreated(id, createRecipeCommand.Name));
             _logger.Log(LogLevel.Information, $"Recipe created: {id}.");
             return CreatedAtAction("Index", new { id }, id);
         }

@@ -12,3 +12,5 @@ So far, this app uses:
 
 Coming soon hopefully:
 - [MediatR](https://github.com/jbogard/MediatR) - really nice in-process messaging service from Jimmy Bogard.
+
+
