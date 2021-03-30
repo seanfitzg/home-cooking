@@ -7,7 +7,7 @@ Docker commands
 
     [From solution root]
     docker build -f HomeCooking.Logging/Dockerfile -t logging-app:dev .
-    docker run -d -p 5000:80 --name logging-app logging-app:dev
+    docker run -d -p 5001:80 --name logging-app logging-app:dev
 
 To start RabbitMQ:
 
