@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HomeCooking.Api.Authentication;
+using HomeCooking.Api.EventBus;
 using HomeCooking.Data;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -45,8 +46,10 @@ namespace HomeCooking.Api
             {
                 options.EnableSensitiveDataLogging();
             });
-            
+
+            services.AddSingleton<IEventBus, EventBus.EventBus>();
             services.AddMediatR(typeof(Application.CreateRecipeCommand), typeof(Application.CreateRecipeHandler));
+            services.AddMediatR(typeof(Application.GetAllRecipesHandler));
             
             ConfigureCors(services);
             

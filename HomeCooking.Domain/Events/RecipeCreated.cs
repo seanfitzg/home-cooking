@@ -1,6 +1,6 @@
 ﻿namespace HomeCooking.Domain.Events
 {
-    public class RecipeCreated
+    public class RecipeCreated : IEvent
     {
         public RecipeCreated(int id, string name)
         {

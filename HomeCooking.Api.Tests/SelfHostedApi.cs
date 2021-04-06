@@ -1,4 +1,5 @@
 ﻿using HomeCooking.Api.Authentication;
+using HomeCooking.Api.EventBus;
 using HomeCooking.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ namespace HomeCooking.Api.Tests
                 
                 services.RemoveAll<IAuthorizationHandler>();
                 services.AddSingleton<IAuthorizationHandler, FakeScopeHandler>();
+                services.AddSingleton<IEventBus, FakeEventBus>();
                 
             });
         }

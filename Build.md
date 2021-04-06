@@ -36,7 +36,7 @@ Run inside docker:
 
     docker run -d -p 5000:80 --name homecooking-app homecooking-app:dev
 
-Run with dapr:
+Run with dapr (this time _cd_ into the HomeCooking.Api directory):
 
     dapr run --app-id homecooking-app --app-port 80 --dapr-http-port 3500 dotnet run
 
@@ -51,6 +51,6 @@ Run inside docker:
 
     docker run -d -p 5001:80 --name logging-app logging-app:dev
 
-Run with dapr:
+Run with dapr (this time _cd_ into the HomeCooking.Logging directory):
 
     dapr run --app-id logging-app --app-port 80 --dapr-http-port 3500 --components-path "..\dapr" dotnet run
