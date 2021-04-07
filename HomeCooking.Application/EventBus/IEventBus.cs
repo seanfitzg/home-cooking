@@ -22,7 +22,7 @@ namespace HomeCooking.Application.EventBus
         {
             try
             {
-                await _daprClient.PublishEventAsync("pubsub-homecooking", topicName, @event);
+                await _daprClient.PublishEventAsync("pubsub-homecooking", topicName, (dynamic)@event);
             }
             catch (Exception e)
             {

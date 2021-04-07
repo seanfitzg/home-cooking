@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient  } from 'react-query';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 export const Recipes = () => {
   const classes = useStyles();
   const history = useHistory();
+  const queryClient = useQueryClient();
+  
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const { isLoading, error, data } = useQuery('recipes', () =>
     getRecipes(getAccessTokenSilently)
@@ -45,7 +47,7 @@ export const Recipes = () => {
     if (confirmDelete) {
       const result = await deleteRecipe(recipeToDelete, getAccessTokenSilently);
       if (result.ok) {
-        await queryCache.invalidateQueries('recipes');
+        await queryClient.invalidateQueries('recipes');
       }
     }
     setOpenConfirm(false);
