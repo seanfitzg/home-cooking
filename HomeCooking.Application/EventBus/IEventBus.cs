@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using Dapr.Client;
 using HomeCooking.Domain.Events;
 
-namespace HomeCooking.Api.EventBus
+namespace HomeCooking.Application.EventBus
 {
     public interface IEventBus
     {
         Task Send(string topicName, IEvent @event);
     }
 
-    internal class EventBus : IEventBus
+    public class EventBus : IEventBus
     {
         private readonly DaprClient _daprClient;
 

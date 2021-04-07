@@ -1,7 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using HomeCooking.Application.EventBus;
 using HomeCooking.Data;
 using HomeCooking.Domain.Entities;
+using HomeCooking.Domain.Events;
 using MediatR;
 
 namespace HomeCooking.Application
@@ -9,13 +11,15 @@ namespace HomeCooking.Application
     public class CreateRecipeHandler : IRequestHandler<CreateRecipeCommand, int>
     {
         private readonly IRecipeRepository _recipeRepository;
+        private readonly IEventBus _eventBus;
 
-        public CreateRecipeHandler(IRecipeRepository recipeRepository)
+        public CreateRecipeHandler(IRecipeRepository recipeRepository, IEventBus eventBus )
         {
             _recipeRepository = recipeRepository;
+            _eventBus = eventBus;
         }
         
-        public Task<int> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
         {
             var recipe = new Recipe()
             {
@@ -27,7 +31,8 @@ namespace HomeCooking.Application
             };
                 
             var id = _recipeRepository.AddRecipe(recipe);
-            return Task.FromResult(id);
+            await _eventBus.Send("newrecipe", new RecipeCreated(id, request.Name));
+            return id;
         }
     }
 }

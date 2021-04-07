@@ -1,4 +1,4 @@
-namespace HomeCooking.Api.DTOs
+namespace HomeCooking.Application.DTOs
 {
     public struct RecipeListDto
     {

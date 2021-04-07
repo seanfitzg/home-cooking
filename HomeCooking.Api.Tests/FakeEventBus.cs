@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using HomeCooking.Api.EventBus;
+using HomeCooking.Application.EventBus;
 using HomeCooking.Domain.Events;
 
 namespace HomeCooking.Api.Tests

@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using HomeCooking.Api.Authentication;
-using HomeCooking.Api.EventBus;
+using HomeCooking.Application.EventBus;
 using HomeCooking.Data;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,15 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Math.EC;
 
 namespace HomeCooking.Api
 {
@@ -47,7 +39,7 @@ namespace HomeCooking.Api
                 options.EnableSensitiveDataLogging();
             });
 
-            services.AddSingleton<IEventBus, EventBus.EventBus>();
+            services.AddSingleton<IEventBus, EventBus>();
             services.AddMediatR(typeof(Application.CreateRecipeCommand), typeof(Application.CreateRecipeHandler));
             services.AddMediatR(typeof(Application.GetAllRecipesHandler));
             
@@ -57,6 +49,8 @@ namespace HomeCooking.Api
 
             // register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+            
+            services.AddHttpContextAccessor();
         }
 
         private static void ConfigureCors(IServiceCollection services)

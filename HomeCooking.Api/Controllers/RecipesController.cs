@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using HomeCooking.Api.DTOs;
-using HomeCooking.Api.EventBus;
 using HomeCooking.Application;
-using HomeCooking.Domain.Entities;
-using HomeCooking.Domain.Events;
+using HomeCooking.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -19,14 +18,14 @@ namespace HomeCooking.Api.Controllers
     public class RecipesController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly IEventBus _eventBus;
         private readonly ILogger<RecipesController> _logger;
+        private readonly string _userId;
 
-        public RecipesController(IMediator mediator, IEventBus eventBus, ILogger<RecipesController> logger)
+        public RecipesController(IMediator mediator, ILogger<RecipesController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
-            _eventBus = eventBus;
             _logger = logger;
+            _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
         
         [HttpGet]
@@ -35,7 +34,7 @@ namespace HomeCooking.Api.Controllers
         {
             try
             {
-                var recipes = await _mediator.Send(new GetAllRecipesCommand(HttpContext.User.Identity.Name));
+                var recipes = await _mediator.Send(new GetAllRecipesCommand(_userId));
                 return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
             }
             catch (Exception e)
@@ -48,12 +47,13 @@ namespace HomeCooking.Api.Controllers
         [HttpGet]
         [Route("{recipeId}")]
         [Authorize("read:recipes")]
-        public async Task<Recipe> GetById(int recipeId)
+        public async Task<ActionResult<RecipeDto>> GetById(int recipeId)
         {
             try
             {
                 var recipe = await _mediator.Send(new GetRecipeCommand(recipeId));
-                return recipe;
+                if (recipe == null) return NotFound();
+                return new RecipeDto(recipe);
             }
             catch (Exception e)
             { 
@@ -81,7 +81,7 @@ namespace HomeCooking.Api.Controllers
         
         [HttpPost]
         [Authorize("read:recipes")]
-        public async Task<IActionResult> PostRecipe([FromBody] CreateRecipeCommand createRecipeCommand)
+        public async Task<IActionResult> PostRecipe([FromBody] RecipeDto recipe)
         {
             try
             {
@@ -89,10 +89,7 @@ namespace HomeCooking.Api.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-
-                createRecipeCommand.UserId = HttpContext.User.Identity.Name;
-                var id = await _mediator.Send(createRecipeCommand);
-                await _eventBus.Send("newrecipe", new RecipeCreated(id, createRecipeCommand.Name));
+                var id = await _mediator.Send(new CreateRecipeCommand(recipe, _userId));
                 _logger.Log(LogLevel.Information, $"Recipe created: {id}.");
                 return CreatedAtAction("Index", new { id }, id);
             }
@@ -105,7 +102,7 @@ namespace HomeCooking.Api.Controllers
         
         [HttpPut]
         [Authorize("read:recipes")]
-        public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeCommand updateRecipeCommand)
+        public async Task<IActionResult> UpdateRecipe([FromBody] RecipeDto recipe)
         {
             try
             {
@@ -113,8 +110,7 @@ namespace HomeCooking.Api.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                updateRecipeCommand.UserId = HttpContext.User.Identity.Name;
-                await _mediator.Send(updateRecipeCommand);
+                await _mediator.Send(new UpdateRecipeCommand(recipe, _userId));
                 return Ok();
             }
             catch (Exception e)
