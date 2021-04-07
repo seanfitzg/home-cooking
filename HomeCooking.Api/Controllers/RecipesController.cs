@@ -38,11 +38,11 @@ namespace HomeCooking.Api.Controllers
                 return recipes.Select(r => new RecipeListDto(r.Id, r.Name, r.Description));
             }
             catch (Exception e)
-            { 
-                Console.WriteLine(e);
+            {
+                LogError(e);
                 throw;
             }
-        }       
+        }
         
         [HttpGet]
         [Route("{recipeId}")]
@@ -57,7 +57,7 @@ namespace HomeCooking.Api.Controllers
             }
             catch (Exception e)
             { 
-                Console.WriteLine(e);
+                LogError(e);
                 throw;
             }
         }      
@@ -74,7 +74,7 @@ namespace HomeCooking.Api.Controllers
             }
             catch (Exception e)
             { 
-                Console.WriteLine(e);
+                LogError(e);
                 throw;
             }
         }  
@@ -95,7 +95,7 @@ namespace HomeCooking.Api.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                LogError(e);
                 throw;
             }
         }
@@ -115,12 +115,19 @@ namespace HomeCooking.Api.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                LogError(e);
                 throw;
             }
         }
         
         [Route("/error")]
         public IActionResult Error() => Problem();
+        
+        private void LogError(Exception e)
+        {
+            _logger.Log(LogLevel.Error, e.ToString());
+            Console.WriteLine(e);
+        }
+
     }
 }
