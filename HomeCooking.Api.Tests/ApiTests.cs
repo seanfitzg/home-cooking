@@ -11,21 +11,21 @@ namespace HomeCooking.Api.Tests
 {
     public class ApiTests : IClassFixture<SelfHostedApi>
     {
-        private readonly SelfHostedApi _factory;
+        private readonly SelfHostedApi _api;
         private readonly JsonSerializerOptions _options = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
         };
         
-        public ApiTests(SelfHostedApi factory)
+        public ApiTests(SelfHostedApi api)
         {
-            _factory = factory;
+            _api = api;
         }
         
         [Fact]
         public async void IndexShouldReturnAListOfRecipes()
         {
-            var client = _factory.CreateClient();
+            var client = _api.CreateClient();
             
             var response = await client.GetAsync("/Recipes");
             
@@ -40,7 +40,7 @@ namespace HomeCooking.Api.Tests
         [Fact]
         public async void AddingARecipeShouldSaveToDatabase()
         {
-            var client = _factory.CreateClient();
+            var client = _api.CreateClient();
             var createRecipeCommand = FakeDatabase.BuildCreateRecipeCommand();
             var payload = JsonSerializer.Serialize(createRecipeCommand);
             
@@ -66,15 +66,15 @@ namespace HomeCooking.Api.Tests
         [Fact]
         public async void UpdatingARecipeShouldUpdateARecipe()
         {
-            var updateRecipe = await GetRecipeById(1);
+            var recipeDto = await GetRecipeById(1);
             
-            var client = _factory.CreateClient();
+            var client = _api.CreateClient();
 
-            updateRecipe.Name = "Update Name";
-            updateRecipe.Method = "Update Method";
-            updateRecipe.Description = "Update Description";
+            recipeDto.Name = "Update Name";
+            recipeDto.Method = "Update Method";
+            recipeDto.Description = "Update Description";
 
-            var payload = JsonSerializer.Serialize(updateRecipe);
+            var payload = JsonSerializer.Serialize(recipeDto);
             
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
             var response = await client.PutAsync("/Recipes", content);
@@ -82,33 +82,33 @@ namespace HomeCooking.Api.Tests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             
             var updatedRecipe = await GetRecipeById(1);
-            Assert.Equal(updateRecipe.Name, updatedRecipe.Name);
-            Assert.Equal(updateRecipe.Method, updatedRecipe.Method);
-            Assert.Equal(updateRecipe.Description, updatedRecipe.Description);
+            Assert.Equal(recipeDto.Name, updatedRecipe.Name);
+            Assert.Equal(recipeDto.Method, updatedRecipe.Method);
+            Assert.Equal(recipeDto.Description, updatedRecipe.Description);
         }
         
         [Fact]
         public async void DeletingARecipeShouldDeleteARecipe()
         {
-            var client = _factory.CreateClient();
+            var client = _api.CreateClient();
 
             var response = await client.DeleteAsync("/Recipes/1");
             response.EnsureSuccessStatusCode();
 
-            var updatedRecipe = await GetRecipeById(1);
-            Assert.Null(updatedRecipe);
+            var recipeDto = await GetRecipeById(1);
+            Assert.Null(recipeDto);
 
         }
         
         private async Task<RecipeDto> GetRecipeById(int id)
         {
-            var client = _factory.CreateClient();
+            var client = _api.CreateClient();
             var response = await client.GetAsync($"/Recipes/{id}");
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
             var returnData = await response.Content.ReadAsStringAsync();
             if (returnData == "") return null;
-            var recipe = JsonSerializer.Deserialize<RecipeDto>(returnData, _options);
-            return recipe;
+            var recipeDto = JsonSerializer.Deserialize<RecipeDto>(returnData, _options);
+            return recipeDto;
         }
     }
 }

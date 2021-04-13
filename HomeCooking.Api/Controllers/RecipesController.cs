@@ -90,7 +90,6 @@ namespace HomeCooking.Api.Controllers
                     return BadRequest(ModelState);
                 }
                 var id = await _mediator.Send(new CreateRecipeCommand(recipe, _userId));
-                _logger.Log(LogLevel.Information, $"Recipe created: {id}.");
                 return CreatedAtAction("Index", new { id }, id);
             }
             catch (Exception e)

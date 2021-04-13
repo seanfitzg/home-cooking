@@ -17,7 +17,7 @@ const deleteRecipe = async (recipe, getAccessTokenSilently) => {
     },
   };
 
-  const res = await fetch(url, request);
+  const res = await fetch(`${url}/${recipe.id}`, request);
   return res;
 };
 
