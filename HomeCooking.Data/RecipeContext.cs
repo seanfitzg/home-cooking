@@ -28,9 +28,7 @@ namespace HomeCooking.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Weight>().ToTable("Weights");
-            modelBuilder.Entity<Other>().ToTable("Others");
-            modelBuilder.Entity<Volume>().ToTable("Volumes");
+            modelBuilder.Entity<Ingredient>().ToTable("Ingredients");
         }
     }
 }

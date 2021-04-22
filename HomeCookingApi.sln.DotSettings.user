@@ -11,6 +11,7 @@
       &lt;TestId&gt;xUnit::7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78::.NETCoreApp,Version=v3.1::HomeCooking.Api.Tests.ApiTests.Test1&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::7924CBAB-E40C-45E1-AEF3-DA9CFE61FD78::.NETCoreApp,Version=v3.1::HomeCooking.Api.Tests.ApiTests&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="C:\projects\HomeCookingApi\HomeCooking.Api.Tests" Presentation="&amp;lt;HomeCooking.Api.Tests&amp;gt;" /&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=dapr/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
