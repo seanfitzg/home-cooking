@@ -23,7 +23,8 @@ namespace HomeCooking.Data
         {
             optionsBuilder
                 .UseLoggerFactory(ConsoleLoggerFactory)
-                .UseSqlite($"Data Source=RecipeDb.db");
+                .UseMySQL("server=localhost;port=3306;database=homecooking;user=dbuser;password=Password1!");
+            //.UseSqlite($"Data Source=RecipeDb.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

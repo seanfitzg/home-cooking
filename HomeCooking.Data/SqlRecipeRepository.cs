@@ -6,11 +6,11 @@ using HomeCooking.Domain.Entities;
 
 namespace HomeCooking.Data
 {
-    public class SqlLiteRecipeRepository : IRecipeRepository
+    public class SqlRecipeRepository : IRecipeRepository
     {
         private readonly RecipeContext _recipeContext;
 
-        public SqlLiteRecipeRepository(RecipeContext recipeContext)
+        public SqlRecipeRepository(RecipeContext recipeContext)
         {
             _recipeContext = recipeContext;
         }

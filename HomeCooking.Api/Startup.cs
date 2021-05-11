@@ -33,7 +33,7 @@ namespace HomeCooking.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddDapr();
-            services.AddScoped<IRecipeRepository, SqlLiteRecipeRepository>();
+            services.AddScoped<IRecipeRepository, SqlRecipeRepository>();
             services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
