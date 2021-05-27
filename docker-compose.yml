@@ -13,8 +13,8 @@ services:
       - ./mysql-data:/var/lib/mysql/
     restart: always
     ports:
-      - "3306:3306"    
-    
+      - "3306:3306"
+      
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
@@ -37,6 +37,9 @@ services:
     network_mode: "service:homecooking-ui"
 
   homecooking-app:
+    depends_on:
+      - mysql
+    restart: always
     image: ${DOCKER_REGISTRY-}homecooking-app:dev
     build:
       context: .

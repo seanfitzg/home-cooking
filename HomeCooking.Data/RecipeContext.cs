@@ -23,7 +23,8 @@ namespace HomeCooking.Data
         {
             optionsBuilder
                 .UseLoggerFactory(ConsoleLoggerFactory)
-                .UseMySQL("server=localhost;port=3306;database=homecooking;user=dbuser;password=Password1!");
+                .UseMySQL("Server=mysql; Port=3306; Database=homecooking; Uid=dbuser; Pwd=Password1!;");
+            
             //.UseSqlite($"Data Source=RecipeDb.db");
         }
 

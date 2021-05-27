@@ -16,8 +16,15 @@ namespace HomeCooking.Api
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Starting Logger...");
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                Console.WriteLine("Starting HomeCooking API...");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
