@@ -2,12 +2,11 @@
 kind: Component
 metadata:
   name: pubsub-homecooking
-  namespace: default
 spec:
   type: pubsub.rabbitmq
   version: v1
   metadata:
     - name: host
-      value: "amqp://rabbitmq:5672"
+      value: "amqp://localhost:5672"
     - name: durable
       value: true
