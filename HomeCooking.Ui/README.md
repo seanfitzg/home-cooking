@@ -4,7 +4,7 @@ This is an ongoing, albeit fairly basic, demo application I'm building to learn/
 
 Deployed to:  https://flux-home-cooking.herokuapp.com/
 
-The ASP.Net Core api is here -> https://github.com/seanfitzg/HomeCookingApi/tree/master/HomeCooking.Api
+The ASP.Net Core api is here -> https://github.com/seanfitzg/home-cooking/tree/master/HomeCooking.Api
 
 So far, this app uses:
 

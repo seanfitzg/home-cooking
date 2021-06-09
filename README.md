@@ -1,4 +1,4 @@
-# HomeCookingApi
+# home-cooking
 This is an ongoing, albeit fairly basic, demo application I'm building to learn/investigate some of the skills and technologies required to build a full stack React -> ASP.Net Core application deployed to Azure.
 
 This is the back-end service, currently deployed to an Azure App Service on https://homecooking.azurewebsites.net/recipes.  The front-end React UI is on: https://github.com/seanfitzg/homecooking-web

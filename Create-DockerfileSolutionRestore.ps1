@@ -1,5 +1,5 @@
 param (
-  [string]$solution = "HomeCookingApi.sln"
+  [string]$solution = "home-cooking.sln"
 )
 
 $outfile = "DockerfileSolutionRestore.txt"

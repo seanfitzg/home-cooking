@@ -1,13 +1,13 @@
-# Default ignored files
+﻿# Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.HomeCookingApi.iml
+/.idea.home-cooking.iml
 /modules.xml
 /contentModel.xml
 /projectSettingsUpdater.xml
 # Datasource local storage ignored files
-/dataSources/
+/../../../../../../../../:\Users\seanf\projects\home-cooking\.idea\.idea.home-cooking\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

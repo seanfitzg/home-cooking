@@ -11,12 +11,12 @@ COPY ["HomeCooking.Domain/HomeCooking.Domain.csproj", "HomeCooking.Domain/"]
 COPY ["HomeCooking.Logging/HomeCooking.Logging.csproj", "HomeCooking.Logging/"]
 COPY ["docker-compose.dcproj", "./"]
 #COPY ["NuGet.config", "./"]
-COPY ["HomeCookingApi.sln", "./"]
-RUN dotnet restore "HomeCookingApi.sln"
+COPY ["home-cooking.sln", "./"]
+RUN dotnet restore "home-cooking.sln"
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet publish HomeCookingApi.sln -c Release -o out
+RUN dotnet publish home-cooking.sln -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
