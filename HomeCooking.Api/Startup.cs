@@ -24,7 +24,7 @@ namespace HomeCooking.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            using(var client = new RecipeContext())
+            using(var client = new RecipeContext(configuration))
             {
                 client.Database.EnsureCreated();
             }

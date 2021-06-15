@@ -29,9 +29,6 @@ namespace HomeCooking.Data
 
         public void UpdateRecipe(Recipe recipe)
         {
-            // _recipeContext.Update(recipe);
-            // _recipeContext.SaveChanges();
-            
             var existingRecipe = GetById(recipe.Id);
             _recipeContext.Entry(existingRecipe).CurrentValues.SetValues(recipe);
             foreach (var ingredient in existingRecipe.Ingredients)

@@ -1,12 +1,19 @@
 using System;
 using HomeCooking.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace HomeCooking.Data
 {
     public class RecipeContext : DbContext
     {
+        public RecipeContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        private readonly IConfiguration _configuration;
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -35,9 +42,10 @@ namespace HomeCooking.Data
             else
             {
                 Console.WriteLine("Using SQLLite");
+                var connection = _configuration["SqlLite:ConnectionString"];
                 optionsBuilder
                     .UseLoggerFactory(ConsoleLoggerFactory)
-                    .UseSqlite($"Data Source=RecipeDb.db"); 
+                    .UseSqlite(connection); 
             }
         }
 
