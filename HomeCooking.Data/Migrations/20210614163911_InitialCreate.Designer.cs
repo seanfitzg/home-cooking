@@ -9,32 +9,30 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeCooking.Data.Migrations
 {
     [DbContext(typeof(RecipeContext))]
-    [Migration("20210422113601_RecipeDb")]
-    partial class RecipeDb
+    [Migration("20210614163911_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7");
+                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("HomeCooking.Domain.Entities.Ingredient", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("varbinary(16)");
 
-                    b.Property<string>("FoodItem")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Amount")
+                        .HasColumnType("double");
 
-                    b.Property<double>("Quantity")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("QuantityType")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Item")
+                        .HasColumnType("text");
 
                     b.Property<int?>("RecipeId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -47,22 +45,22 @@ namespace HomeCooking.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Method")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int?>("UserId1")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -75,10 +73,10 @@ namespace HomeCooking.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

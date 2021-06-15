@@ -27,7 +27,11 @@ namespace HomeCooking.Api.Tests
         
         public static Recipe CreateRecipe(int id)
         {
-            return Fixture.Build<Recipe>().With(p => p.Id, id).Create();
+            var ingredients = Fixture.CreateMany<Ingredient>().ToList();
+            return Fixture.Build<Recipe>()
+                    .With(p => p.Id, id)
+                    .With(p => p.Ingredients, ingredients)
+                    .Create();
         }
         
         public IEnumerable<Recipe> GetAllRecipes(string userId)

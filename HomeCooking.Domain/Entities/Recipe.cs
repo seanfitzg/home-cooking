@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace HomeCooking.Domain.Entities
@@ -13,7 +14,7 @@ namespace HomeCooking.Domain.Entities
         public string Name { get;  set; }
         public string Method { get;  set; }
         public string Description { get;  set; }
-        public IEnumerable<Ingredient> Ingredients { get;  set; }
+        public IList<Ingredient> Ingredients { get;  set; }
         public int Id { get; set; }
     }
 }

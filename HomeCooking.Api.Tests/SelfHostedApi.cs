@@ -14,19 +14,22 @@ namespace HomeCooking.Api.Tests
 {
     public sealed class SelfHostedApi : WebApplicationFactory<Startup>
     {
+        public static string TestUser = "TestUser";
+        
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
             {
                 services.RemoveAll<IRecipeRepository>();
                 services.AddSingleton<IRecipeRepository>(new FakeDatabase());
+                // TODO - use SqlLite in memory instead of FakeDatabase
                 
                 services.RemoveAll<IAuthorizationHandler>();
                 services.AddSingleton<IAuthorizationHandler, FakeScopeHandler>();
                 services.AddSingleton<IEventBus, FakeEventBus>();
                 
                 var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
-                mockHttpContextAccessor.Setup(req => req.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim(ClaimTypes.NameIdentifier, "TestUser"));
+                mockHttpContextAccessor.Setup(req => req.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim(ClaimTypes.NameIdentifier, TestUser));
                 services.AddSingleton<IHttpContextAccessor>(mockHttpContextAccessor.Object);
             });
         }

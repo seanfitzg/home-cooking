@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace HomeCooking.Api
 {
@@ -38,7 +39,11 @@ namespace HomeCooking.Api
             {
                 options.EnableSensitiveDataLogging();
             });
-
+            // services.AddEntityFrameworkMySQL().AddDbContext<RecipeContext>(options =>
+            // {
+            //     options.EnableSensitiveDataLogging();
+            // });
+            
             services.AddSingleton<IEventBus, EventBus>();
             services.AddMediatR(typeof(Application.CreateRecipeCommand), typeof(Application.CreateRecipeHandler));
             services.AddMediatR(typeof(Application.GetAllRecipesHandler));

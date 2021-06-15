@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+import { store } from '../../Utils/store';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,37 +31,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-  { field: 'ingredient', headerName: 'Ingredient', width: 400 },
+  { field: 'item', headerName: 'Item', width: 400 },
   { field: 'amount', headerName: 'Amount', width: 200 },
-];
-
-const rows = [
-  { id: 1, ingredient: 'Beans', amount: '2 cans' },
-  { id: 2, ingredient: 'Sliced Pan', amount: '1' },
 ];
 
 export default function Ingredients() {
   const classes = useStyles();
-  const [ingredient, setIngredient] = useState('');
+  const storeContext = useContext(store);
+  const [item, setItem] = useState('');
   const [amount, setAmount] = useState('');
   const [deleteDisabled, setDeleteDisabled] = useState(true);
-  const [ingredientList, setIngredientList] = useState(rows);
   const [itemsToDelete, setItemsToDelete] = useState([]);
+
+  const { state, dispatch } = storeContext;
+
+  const ingredientList = state.recipe ? state.recipe.ingredients ?? [] : [];
+
   const handleAdd = () => {
-    if (!ingredient) return;
-    setIngredientList([
-      ...ingredientList,
-      { id: uuidv4(), ingredient, amount },
-    ]);
+    if (!item) return;
+    dispatch({
+      type: 'UPDATE_INGREDIENTS',
+      ingredients: [
+        ...state.recipe.ingredients,
+        { id: uuidv4(), item, amount, isNew: true },
+      ],
+    });
     setAmount('');
-    setIngredient('');
+    setItem('');
   };
 
   const handleDelete = () => {
     var remaining = ingredientList.filter(
       (el) => !itemsToDelete.includes(el.id)
     );
-    setIngredientList(remaining);
+    dispatch({
+      type: 'UPDATE_INGREDIENTS',
+      ingredients: remaining,
+    });
     setDeleteDisabled(true);
   };
 
@@ -83,16 +90,16 @@ export default function Ingredients() {
           <div className={classes.title}>Ingredients</div>
           <div className={classes.textBoxes}>
             <TextField
-              id="ingredient"
-              label="Ingredient"
-              value={ingredient}
-              onChange={(event) => setIngredient(event.target.value)}
-            />
-            <TextField
               id="amount"
               label="Amount"
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
+            />
+            <TextField
+              id="item"
+              label="Item"
+              value={item}
+              onChange={(event) => setItem(event.target.value)}
             />
             <Button onClick={handleAdd} variant="contained">
               Add Ingredient

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using HomeCooking.Data;
 using HomeCooking.Domain.Entities;
@@ -23,7 +24,8 @@ namespace HomeCooking.Application
                 Name = request.Name,
                 Description = request.Description,
                 Method = request.Method,
-                Ingredients = request.Ingredients
+                Ingredients = request.Ingredients,
+                UserId = request.UserId
             };
             _recipeRepository.UpdateRecipe(recipe);
             return Task.FromResult(true);

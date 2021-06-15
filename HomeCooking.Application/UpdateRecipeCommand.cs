@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HomeCooking.Application.DTOs;
 using HomeCooking.Domain.Entities;
 using MediatR;
@@ -7,14 +8,14 @@ namespace HomeCooking.Application
 {
     public class UpdateRecipeCommand : IRequest<bool>
     {
-        public UpdateRecipeCommand(RecipeDto recipe, string userId)
+        public UpdateRecipeCommand(RecipeDto recipeDto, string userId)
         {
             UserId = userId;
-            RecipeId = recipe.Id;
-            Name = recipe.Name;
-            Method = recipe.Method;
-            Description = recipe.Description;
-            Ingredients = recipe.Ingredients;
+            RecipeId = recipeDto.Id;
+            Name = recipeDto.Name;
+            Method = recipeDto.Method;
+            Description = recipeDto.Description;
+            Ingredients = recipeDto.Ingredients.Select(IngredientDto.CreateIngredientFromDto).ToList();
         }
 
         public int RecipeId { get; }
@@ -22,6 +23,6 @@ namespace HomeCooking.Application
         public string Name { get; }
         public string Method { get; }
         public string Description { get; }
-        public IEnumerable<Ingredient> Ingredients { get; }
+        public IList<Ingredient> Ingredients { get; }
     }
 }

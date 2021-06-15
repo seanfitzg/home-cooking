@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using AutoFixture;
 using HomeCooking.Application.DTOs;
 using Xunit;
 
@@ -12,6 +14,7 @@ namespace HomeCooking.Api.Tests
     public class ApiTests : IClassFixture<SelfHostedApi>
     {
         private readonly SelfHostedApi _api;
+        private static readonly Fixture Fixture = new();
         private readonly JsonSerializerOptions _options = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
@@ -67,13 +70,16 @@ namespace HomeCooking.Api.Tests
         public async void UpdatingARecipeShouldUpdateARecipe()
         {
             var recipeDto = await GetRecipeById(1);
-            
+            var newIngredient = Fixture.Create<IngredientDto>();
             var client = _api.CreateClient();
 
             recipeDto.Name = "Update Name";
             recipeDto.Method = "Update Method";
             recipeDto.Description = "Update Description";
-
+            recipeDto.UserId = "Test User";
+            
+            var ingredients = recipeDto.Ingredients.Append(newIngredient).ToList();
+            recipeDto.Ingredients = ingredients;
             var payload = JsonSerializer.Serialize(recipeDto);
             
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -85,6 +91,8 @@ namespace HomeCooking.Api.Tests
             Assert.Equal(recipeDto.Name, updatedRecipe.Name);
             Assert.Equal(recipeDto.Method, updatedRecipe.Method);
             Assert.Equal(recipeDto.Description, updatedRecipe.Description);
+            Assert.Equal(SelfHostedApi.TestUser, updatedRecipe.UserId);
+            Assert.Equal(newIngredient, recipeDto.Ingredients.Last());
         }
         
         [Fact]

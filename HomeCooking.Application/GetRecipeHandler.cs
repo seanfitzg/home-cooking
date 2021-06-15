@@ -17,7 +17,8 @@ namespace HomeCooking.Application
         
         public Task<Recipe> Handle(GetRecipeCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_recipeRepository.GetById(request.RecipeId));
+            var recipe = _recipeRepository.GetById(request.RecipeId);
+            return Task.FromResult(recipe);
         }
     }
 }
