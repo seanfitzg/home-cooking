@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
@@ -21,9 +22,10 @@ namespace HomeCooking.Api.Tests
             builder.ConfigureServices(services =>
             {
                 services.RemoveAll<IRecipeRepository>();
-                services.AddSingleton<IRecipeRepository>(new FakeDatabase());
+                //services.AddSingleton<IRecipeRepository>(new FakeDatabase());
                 // TODO - use SqlLite in memory instead of FakeDatabase
-                
+                services.AddScoped<IRecipeRepository, SqlRecipeRepository>();
+
                 services.RemoveAll<IAuthorizationHandler>();
                 services.AddSingleton<IAuthorizationHandler, FakeScopeHandler>();
                 services.AddSingleton<IEventBus, FakeEventBus>();

@@ -43,10 +43,10 @@ namespace HomeCooking.Data
             {
                 Console.WriteLine("Using SQLLite");
                 var connection = _configuration["SqlLite:ConnectionString"];
+                //var connection = "DataSource=file::memory:?cache=shared";
                 optionsBuilder
                     .UseLoggerFactory(ConsoleLoggerFactory)
-                    .UseSqlite(connection); 
-            }
+                    .UseSqlite(connection);            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

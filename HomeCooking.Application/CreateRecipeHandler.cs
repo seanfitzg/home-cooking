@@ -31,9 +31,9 @@ namespace HomeCooking.Application
                 Ingredients = request.Ingredients
             };
                 
-            var id = _recipeRepository.AddRecipe(recipe);
-            await _eventBus.Send("newrecipe", new RecipeCreated(id, request.Name));
-            return id;
+            _recipeRepository.AddRecipe(recipe);
+            await _eventBus.Send("newrecipe", new RecipeCreated(recipe.Id, request.Name));
+            return recipe.Id;
         }
     }
 }

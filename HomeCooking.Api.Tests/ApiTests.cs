@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoFixture;
+using HomeCooking.Application;
 using HomeCooking.Application.DTOs;
 using Xunit;
 
@@ -14,8 +15,10 @@ namespace HomeCooking.Api.Tests
     public class ApiTests : IClassFixture<SelfHostedApi>
     {
         private readonly SelfHostedApi _api;
+        private readonly HttpClient _client;
+        private readonly int _recipeId;
         private static readonly Fixture Fixture = new();
-        private readonly JsonSerializerOptions _options = new JsonSerializerOptions
+        private readonly JsonSerializerOptions _options = new()
         {
             PropertyNameCaseInsensitive = true,
         };
@@ -23,14 +26,30 @@ namespace HomeCooking.Api.Tests
         public ApiTests(SelfHostedApi api)
         {
             _api = api;
+            _client = _api.CreateClient();
+            _recipeId = CreateRecipe(_client);
+        }
+
+        private static CreateRecipeCommand BuildCreateRecipeCommand()
+        {
+            return Fixture.Build<CreateRecipeCommand>().Create();
+        }
+        
+        private static int CreateRecipe(HttpClient client)
+        {
+            var createRecipeCommand = BuildCreateRecipeCommand();
+            var payload = JsonSerializer.Serialize(createRecipeCommand);
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var response = client.PostAsync("/Recipes", content).Result;
+            response.EnsureSuccessStatusCode();
+            var id = response.Content.ReadAsStringAsync().Result;
+            return int.Parse(id);
         }
         
         [Fact]
         public async void IndexShouldReturnAListOfRecipes()
         {
-            var client = _api.CreateClient();
-            
-            var response = await client.GetAsync("/Recipes");
+            var response = await _client.GetAsync("/Recipes");
             
             response.EnsureSuccessStatusCode(); // Status Code 200-299
             Assert.Equal("application/json; charset=utf-8", 
@@ -43,18 +62,17 @@ namespace HomeCooking.Api.Tests
         [Fact]
         public async void AddingARecipeShouldSaveToDatabase()
         {
-            var client = _api.CreateClient();
-            var createRecipeCommand = FakeDatabase.BuildCreateRecipeCommand();
+            var createRecipeCommand = BuildCreateRecipeCommand();
             var payload = JsonSerializer.Serialize(createRecipeCommand);
             
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/Recipes", content);
+            var response = await _client.PostAsync("/Recipes", content);
             response.EnsureSuccessStatusCode();
             
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var recipeId = await response.Content.ReadAsStringAsync();
 
-            var addedRecipe = await GetRecipeById(int.Parse(recipeId));
+            var addedRecipe = await GetRecipeById(_client, int.Parse(recipeId));
             Assert.Equal(createRecipeCommand.Name, addedRecipe.Name);
             
         }
@@ -62,16 +80,15 @@ namespace HomeCooking.Api.Tests
         [Fact]
         public async void GettingARecipeShouldReturnARecipe()
         {
-            var recipe = await GetRecipeById(1);
-            Assert.Equal(1, recipe.Id);
+            var recipe = await GetRecipeById(_client, _recipeId);
+            Assert.Equal(_recipeId, recipe.Id);
         }
 
         [Fact]
         public async void UpdatingARecipeShouldUpdateARecipe()
         {
-            var recipeDto = await GetRecipeById(1);
+            var recipeDto = await GetRecipeById(_client, _recipeId);
             var newIngredient = Fixture.Create<IngredientDto>();
-            var client = _api.CreateClient();
 
             recipeDto.Name = "Update Name";
             recipeDto.Method = "Update Method";
@@ -83,11 +100,11 @@ namespace HomeCooking.Api.Tests
             var payload = JsonSerializer.Serialize(recipeDto);
             
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync("/Recipes", content);
+            var response = await _client.PutAsync("/Recipes", content);
             response.EnsureSuccessStatusCode();
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             
-            var updatedRecipe = await GetRecipeById(1);
+            var updatedRecipe = await GetRecipeById(_client, _recipeId);
             Assert.Equal(recipeDto.Name, updatedRecipe.Name);
             Assert.Equal(recipeDto.Method, updatedRecipe.Method);
             Assert.Equal(recipeDto.Description, updatedRecipe.Description);
@@ -98,19 +115,18 @@ namespace HomeCooking.Api.Tests
         [Fact]
         public async void DeletingARecipeShouldDeleteARecipe()
         {
-            var client = _api.CreateClient();
-
-            var response = await client.DeleteAsync("/Recipes/1");
+            var id = CreateRecipe(_client);
+            
+            var response = await _client.DeleteAsync($"/Recipes/{id}");
             response.EnsureSuccessStatusCode();
 
-            var recipeDto = await GetRecipeById(1);
+            var recipeDto = await GetRecipeById(_client, id);
             Assert.Null(recipeDto);
 
         }
         
-        private async Task<RecipeDto> GetRecipeById(int id)
+        private async Task<RecipeDto> GetRecipeById(HttpClient client, int id)
         {
-            var client = _api.CreateClient();
             var response = await client.GetAsync($"/Recipes/{id}");
             if (response.StatusCode == HttpStatusCode.NotFound) return null;
             var returnData = await response.Content.ReadAsStringAsync();
@@ -119,4 +135,6 @@ namespace HomeCooking.Api.Tests
             return recipeDto;
         }
     }
+
+
 }

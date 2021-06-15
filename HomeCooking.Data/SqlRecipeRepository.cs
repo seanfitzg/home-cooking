@@ -59,10 +59,6 @@ namespace HomeCooking.Data
             var recipe = _recipeContext.Recipes
                         .Include(p => p.Ingredients)
                         .SingleOrDefault(r => r.Id == recipeId);
-            if (recipe == null)
-            {
-                throw new ApplicationException("Recipe not found"); 
-            }
             return recipe;
         }
 
