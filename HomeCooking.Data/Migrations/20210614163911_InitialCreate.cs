@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace HomeCooking.Data.Migrations
 {
-    public partial class RecipeDb : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +13,7 @@ namespace HomeCooking.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -24,7 +26,7 @@ namespace HomeCooking.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Method = table.Column<string>(nullable: true),
@@ -46,11 +48,9 @@ namespace HomeCooking.Data.Migrations
                 name: "Ingredients",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FoodItem = table.Column<string>(nullable: true),
-                    Quantity = table.Column<double>(nullable: false),
-                    QuantityType = table.Column<string>(nullable: true),
+                    Id = table.Column<byte[]>(nullable: false),
+                    Item = table.Column<string>(nullable: true),
+                    Amount = table.Column<double>(nullable: false),
                     RecipeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
