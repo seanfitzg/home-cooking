@@ -77,7 +77,11 @@ export const Recipes = () => {
           return (
             <List className={classes.root} key={index}>
               <ListItem alignItems="flex-start">
-                <Link component={RouterLink} to={`/edit?id=${recipe.id}`}>
+                <Link
+                  aria-label="edit"
+                  component={RouterLink}
+                  to={`/edit?id=${recipe.id}`}
+                >
                   <ListItemIcon>
                     <EditIcon />
                   </ListItemIcon>

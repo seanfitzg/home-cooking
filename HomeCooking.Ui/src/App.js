@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import RecipeAppBar from './Components/RecipeAppBar/RecipeAppBar';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
 import Container from '@material-ui/core/Container';
 import { StateProvider } from './Utils/store.js';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
