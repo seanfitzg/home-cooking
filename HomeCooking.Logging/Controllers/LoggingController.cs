@@ -41,7 +41,7 @@ namespace HomeCooking.Logging.Controllers
         {
             var recipes = string.Join(",", _createdRecipes);
             _logger.Log(LogLevel.Information, $"Get recipes - {recipes}");
-            return $@"Recipe list: {recipes}";
+            return $@"Recipes recently created: {recipes}";
         }
     }
 }

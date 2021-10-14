@@ -73,7 +73,7 @@ export default function Ingredients() {
 
   const checkBoxSelection = (item) => {
     console.log(`item`, item);
-    setDeleteDisabled(item.selectionModel?.length > 0 ? false : true);
+    setDeleteDisabled(item.selectionModel?.length <= 0);
     setItemsToDelete(item.selectionModel);
   };
 
