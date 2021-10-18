@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeCooking.Queries.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +14,13 @@ namespace HomeCooking.Queries.Controllers
     {
         // GET: api/NutritionData
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Nutrition> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new Nutrition[]
+            {
+                new() {Item = "Pasta", Calories = 100},
+                new() {Item = "Sausages", Calories = 200}
+            };
         }
 
         // GET: api/NutritionData/5

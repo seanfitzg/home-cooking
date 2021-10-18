@@ -22,8 +22,8 @@ namespace HomeCooking.Api.Tests
             builder.ConfigureServices(services =>
             {
                 services.RemoveAll<IRecipeRepository>();
-                //services.AddSingleton<IRecipeRepository>(new FakeDatabase());
-                // TODO - use SqlLite in memory instead of FakeDatabase
+                
+                // TODO - use SqlLite in memory
                 services.AddScoped<IRecipeRepository, SqlRecipeRepository>();
 
                 services.RemoveAll<IAuthorizationHandler>();

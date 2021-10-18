@@ -21,22 +21,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-      
-#  homecooking-ui:
-#    image: ${DOCKER_REGISTRY-}homecooking-ui:dev
-#    build:
-#      context: ../home-cooking-web
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3000"
-#
-#  homecooking-ui-dapr:
-#    image: "daprio/daprd:latest"
-#    command: [ "./daprd", "-app-id", "homecooking-ui", "-app-port", "80" ]
-#    depends_on:
-#      - homecooking-ui
-#    network_mode: "service:homecooking-ui"
-
+  
   homecooking-app:
     depends_on:
       - mysql
@@ -84,3 +69,26 @@ services:
     depends_on:
       - logging-app
     network_mode: "service:logging-app"
+
+  home-cooking-queries:
+    image: ${DOCKER_REGISTRY-}home-cooking-queries:dev
+    build:
+      context: .
+      dockerfile: ./HomeCooking.Queries/Dockerfile
+    ports:
+      - "5004:80"
+      - "3502:3502"  # expose the dapr port as well.
+
+  home-cooking-queries-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd",
+               "-app-id", "home-cooking-queries",
+               "-app-port", "80",
+               "-dapr-http-port", "3502",
+               "-components-path", "/dapr"
+    ]
+    volumes:
+      - "./dapr/:/dapr"
+    depends_on:
+      - home-cooking-queries
+    network_mode: "service:home-cooking-queries"
