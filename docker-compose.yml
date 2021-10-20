@@ -22,11 +22,11 @@ services:
       - "5672:5672"
       - "15672:15672"
   
-  homecooking-app:
+  home-cooking-app:
     depends_on:
       - mysql
     restart: always
-    image: ${DOCKER_REGISTRY-}homecooking-app:dev
+    image: ${DOCKER_REGISTRY-}home-cooking-app:dev
     build:
       context: .
       dockerfile: ./HomeCooking.Api/Dockerfile
@@ -36,18 +36,18 @@ services:
       - USE_MY_SQL=true
       - DATA_SERVER=mysql
   
-  homecooking-app-dapr:
+  home-cooking-app-dapr:
     image: "daprio/daprd:latest"
     command: [ "./daprd", 
-                "-app-id", "homecooking-app", 
+                "-app-id", "home-cooking-app", 
                 "-app-port", "80",
                 "-components-path", "/dapr"       
               ]
     volumes:
       - "./dapr/:/dapr"  
     depends_on:
-      - homecooking-app
-    network_mode: "service:homecooking-app"
+      - home-cooking-app
+    network_mode: "service:home-cooking-app"
 
   logging-app:
     image: ${DOCKER_REGISTRY-}logging-app:dev
