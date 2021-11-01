@@ -34,10 +34,15 @@ namespace HomeCooking.Api
         {
             services.AddControllers().AddDapr();
             services.AddScoped<IRecipeRepository, SqlRecipeRepository>();
-            services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>(options =>
+            
+            services.AddEntityFrameworkNpgsql().AddDbContext<RecipeContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
-            });
+            });            
+            // services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>(options =>
+            // {
+            //     options.EnableSensitiveDataLogging();
+            // });
             // services.AddEntityFrameworkMySQL().AddDbContext<RecipeContext>(options =>
             // {
             //     options.EnableSensitiveDataLogging();

@@ -24,7 +24,7 @@
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "USE_MY_SQL": "true"
+        "USE_MY_SQL": "false"
       }
     }
   }
