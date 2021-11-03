@@ -31,8 +31,12 @@ namespace HomeCooking.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    var port = System.Environment.GetEnvironmentVariable("PORT");
+                    port ??= "5000";
+                    var ip = System.Environment.GetEnvironmentVariable("IP");
+                    ip ??= "localhost";                    
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls($"http://0.0.0.0:{System.Environment.GetEnvironmentVariable("PORT")}");
+                    webBuilder.UseUrls($"http://{ip}:{port}");
                 });
     }
 }
