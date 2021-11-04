@@ -67,9 +67,10 @@ namespace HomeCooking.Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        ;
+                        var ip = System.Environment.GetEnvironmentVariable("IP");
+                        ip ??= "localhost";      
                         builder
-                            .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost" ||
+                            .SetIsOriginAllowed(origin => new Uri(origin).Host == ip || new Uri(origin).Host == "localhost" ||
                                                           new Uri(origin).Host == "flux-home-cooking.herokuapp.com")
                             .WithMethods(HttpMethods.Put, HttpMethods.Post, HttpMethods.Delete)
                             .AllowAnyHeader();
@@ -108,9 +109,9 @@ namespace HomeCooking.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeCooking.Api v1"));
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeCooking.Api v1"));
 
             app.UseCloudEvents();
 

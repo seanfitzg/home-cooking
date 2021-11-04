@@ -8,5 +8,6 @@ riderModule.iml
 node_modules
 build
 mysql-data
+/sql/data
 
 /HomeCooking.Api/RecipeDb.db
