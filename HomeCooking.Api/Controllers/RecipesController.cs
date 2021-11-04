@@ -120,6 +120,7 @@ namespace HomeCooking.Api.Controllers
         }
         
         [Route("/error")]
+        [HttpGet]
         public IActionResult Error() => Problem();
         
         private void LogError(Exception e)

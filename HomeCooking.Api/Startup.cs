@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace HomeCooking.Api
 {
@@ -32,22 +33,19 @@ namespace HomeCooking.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddDapr();
+            services.AddControllers().AddDapr();            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "HomeCooking.Api", Version = "v1"});
+            });
+            
             services.AddScoped<IRecipeRepository, SqlRecipeRepository>();
             
             services.AddEntityFrameworkNpgsql().AddDbContext<RecipeContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
-            });            
-            // services.AddEntityFrameworkSqlite().AddDbContext<RecipeContext>(options =>
-            // {
-            //     options.EnableSensitiveDataLogging();
-            // });
-            // services.AddEntityFrameworkMySQL().AddDbContext<RecipeContext>(options =>
-            // {
-            //     options.EnableSensitiveDataLogging();
-            // });
-            
+            });
+
             services.AddSingleton<IEventBus, EventBus>();
             services.AddMediatR(typeof(Application.CreateRecipeCommand), typeof(Application.CreateRecipeHandler));
             services.AddMediatR(typeof(Application.GetAllRecipesHandler));
@@ -110,6 +108,8 @@ namespace HomeCooking.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeCooking.Api v1"));
             }
 
             app.UseCloudEvents();
