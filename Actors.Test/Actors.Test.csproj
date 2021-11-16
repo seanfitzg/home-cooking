@@ -1,16 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapr.Client" Version="1.4.0" />
-      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="Dapr.Actors" Version="1.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HomeCooking.Data\HomeCooking.Data.csproj" />
       <ProjectReference Include="..\HomeCooking.Domain\HomeCooking.Domain.csproj" />
     </ItemGroup>
 

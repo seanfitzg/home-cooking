@@ -1,5 +1,7 @@
 using System;
 using System.Security.Claims;
+using System.Text.Json;
+using HomeCooking.Actors.Actors;
 using HomeCooking.Api.Authentication;
 using HomeCooking.Application.EventBus;
 using HomeCooking.Data;
@@ -37,6 +39,18 @@ namespace HomeCooking.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HomeCooking.Api", Version = "v1"});
+            });
+            
+            services.AddActors(options =>
+            {
+                var jsonSerializerOptions = new JsonSerializerOptions()
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNameCaseInsensitive = true
+                };
+
+                options.JsonSerializerOptions = jsonSerializerOptions;
+                options.Actors.RegisterActor<CounterActor>();
             });
             
             services.AddScoped<IRecipeRepository, SqlRecipeRepository>();

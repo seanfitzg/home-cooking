@@ -52,6 +52,7 @@ services:
       - "./dapr/:/dapr"
     depends_on:
       - home-cooking-app
+      - pgsql
     network_mode: "service:home-cooking-app"
 
   logging-app:
@@ -78,6 +79,7 @@ services:
       - "./dapr/:/dapr"
     depends_on:
       - logging-app
+      - pgsql
     network_mode: "service:logging-app"
 
   home-cooking-queries:
@@ -107,4 +109,5 @@ services:
       - "./dapr/:/dapr"
     depends_on:
       - home-cooking-queries
+      - pgsql
     network_mode: "service:home-cooking-queries"

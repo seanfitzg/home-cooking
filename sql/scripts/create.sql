@@ -1,5 +1,10 @@
 CREATE USER homecooking WITH PASSWORD 'homecooking';
 
+-- CREATE DATABASE homecooking; -- created by EF.
+CREATE DATABASE dapr;
+GRANT ALL PRIVILEGES ON DATABASE homecooking TO homecooking;
+GRANT ALL PRIVILEGES ON DATABASE dapr TO homecooking;
+
 -- CREATE TABLE Recipes (
 --     Id SERIAL NOT NULL UNIQUE,
 --     UserId varchar NOT NULL,

@@ -1,0 +1,13 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+spec:
+  type: state.postgresql
+  version: v1
+  metadata:
+    - name: connectionString
+      value: host=pgsql user=homecooking password=homecooking port=5432 connect_timeout=10 database=dapr
+    - name: actorStateStore
+      value: "true"
+# pgsql host: use "localhost" when not running in docker, use "pgsql" when running in docker.  
