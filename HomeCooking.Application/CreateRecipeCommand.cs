@@ -15,7 +15,7 @@ namespace HomeCooking.Application
             Name = recipeDto.Name;
             Method = recipeDto.Method;
             Description = recipeDto.Description;
-            Ingredients = recipeDto.Ingredients.Select(IngredientDto.CreateIngredientFromDto).ToList();
+            Ingredients = recipeDto.Ingredients == null ? new List<Ingredient>() : recipeDto.Ingredients.Select(IngredientDto.CreateIngredientFromDto).ToList();
         }
 
         public string UserId { get; set; }

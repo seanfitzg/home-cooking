@@ -31,12 +31,15 @@ namespace HomeCooking.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    var port = System.Environment.GetEnvironmentVariable("PORT");
-                    port ??= "5000";
-                    var ip = System.Environment.GetEnvironmentVariable("IP");
-                    ip ??= "localhost";                    
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls($"http://{ip}:{port}");
+                    
+                    // required for Heroku???
+                    // better to use ASPNETCORE_URLS - https://andrewlock.net/5-ways-to-set-the-urls-for-an-aspnetcore-app/
+                    // var port = System.Environment.GetEnvironmentVariable("PORT");
+                    // port ??= "5000";
+                    // var ip = System.Environment.GetEnvironmentVariable("IP");
+                    // ip ??= "localhost"; 
+                    // webBuilder.UseUrls($"http://{ip}:{port}");  // required for Heroku???
                 });
     }
 }

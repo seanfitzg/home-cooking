@@ -1,6 +1,7 @@
 version: "3.4"
 
 services:
+  
   pgsql:
     image: postgres:latest
     environment:
@@ -41,12 +42,9 @@ services:
     command:
       [
         "./daprd",
-        "-app-id",
-        "home-cooking-app",
-        "-app-port",
-        "80",
-        "-components-path",
-        "/dapr",
+        "-app-id", "home-cooking-app",
+        "-app-port", "80",
+        "-components-path", "/dapr",
       ]
     volumes:
       - "./dapr/:/dapr"
@@ -67,12 +65,9 @@ services:
     command:
       [
         "./daprd",
-        "-app-id",
-        "logging-app",
-        "-app-port",
-        "80",
-        "-components-path",
-        "/dapr",
+        "-app-id", "logging-app",
+        "-app-port", "80",
+        "-components-path", "/dapr",
       ]
     volumes:
       - "./dapr/:/dapr"
@@ -94,14 +89,10 @@ services:
     command:
       [
         "./daprd",
-        "-app-id",
-        "home-cooking-queries",
-        "-app-port",
-        "80",
-        "-dapr-http-port",
-        "3502",
-        "-components-path",
-        "/dapr",
+        "-app-id", "home-cooking-queries",
+        "-app-port", "80",
+        "-dapr-http-port", "3502",
+        "-components-path", "/dapr",
       ]
     volumes:
       - "./dapr/:/dapr"
