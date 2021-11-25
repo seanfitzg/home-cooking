@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.Queries", "HomeCooking.Queries\HomeCooking.Queries.csproj", "{E58AA960-638E-4D5D-AE6C-C5FEF69D07D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.ShoppingList", "HomeCooking.ShoppingList\HomeCooking.ShoppingList.csproj", "{181AB8F3-18BD-4A75-B96D-E51FD1A2393D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "envoy", "envoy", "{FB66DEA4-908D-4871-9990-1919B8780E8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,5 +68,9 @@ Global
 		{E58AA960-638E-4D5D-AE6C-C5FEF69D07D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E58AA960-638E-4D5D-AE6C-C5FEF69D07D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E58AA960-638E-4D5D-AE6C-C5FEF69D07D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181AB8F3-18BD-4A75-B96D-E51FD1A2393D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181AB8F3-18BD-4A75-B96D-E51FD1A2393D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181AB8F3-18BD-4A75-B96D-E51FD1A2393D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181AB8F3-18BD-4A75-B96D-E51FD1A2393D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
