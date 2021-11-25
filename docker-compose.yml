@@ -14,12 +14,16 @@ services:
     restart: always
     ports:
       - "5432:5432"
+    networks:
+      - home-cooking-network
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - home-cooking-network
 
   home-cooking-app:
     depends_on:
@@ -31,11 +35,12 @@ services:
       dockerfile: ./HomeCooking.Api/Dockerfile
     ports:
       - "5000:80"
-      - "3500:3500" # expose the dapr port as well.
     environment:
       - IP=localhost # use 0.0.0.0 for heroku
       - PORT=80
       - DB_CONNECTION_STRING=Host=pgsql;Port=5432;Database=homecooking;Username=homecooking;Password=homecooking
+    networks:
+      - home-cooking-network
 
   home-cooking-app-dapr:
     image: "daprio/daprd:latest"
@@ -59,7 +64,9 @@ services:
       dockerfile: ./HomeCooking.Logging/Dockerfile
     ports:
       - "5001:80"
-
+    networks:
+      - home-cooking-network
+  
   logging-app-dapr:
     image: "daprio/daprd:latest"
     command:
@@ -82,8 +89,9 @@ services:
       dockerfile: ./HomeCooking.Queries/Dockerfile
     ports:
       - "5004:80"
-      - "3502:3502" # expose the dapr port as well.
-
+    networks:
+      - home-cooking-network
+      
   home-cooking-queries-dapr:
     image: "daprio/daprd:latest"
     command:
@@ -91,7 +99,6 @@ services:
         "./daprd",
         "-app-id", "home-cooking-queries",
         "-app-port", "80",
-        "-dapr-http-port", "3502",
         "-components-path", "/dapr",
       ]
     volumes:
@@ -99,3 +106,35 @@ services:
     depends_on:
       - home-cooking-queries
     network_mode: "service:home-cooking-queries"
+
+  envoy:
+    image: envoyproxy/envoy:v1.14.2
+    volumes:
+      - ./envoy:/etc/envoy
+    ports:
+      - "5202:80"
+      - "15202:8001"
+#      - "50008:50001"
+    networks:
+      - home-cooking-network
+  
+  # curl http://localhost:5202/home-cooking-app/ping
+  # curl http://localhost:5202/home-cooking-queries/NutritionData
+  # curl http://localhost:5202/h/ping
+  # curl http://localhost:5202/q/NutritionData
+  
+  envoy-dapr:
+    image: "daprio/daprd:latest"
+    network_mode: "service:envoy"
+    depends_on:
+      - envoy    
+    command: ["./daprd",
+              "-app-id", "envoy",
+              "-app-port", "80",
+              "-components-path", "/dapr",
+    ]
+    volumes:
+      - "./dapr/:/dapr"
+
+networks:
+  home-cooking-network:
