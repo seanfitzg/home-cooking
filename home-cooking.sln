@@ -26,6 +26,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooking.ShoppingList", "HomeCooking.ShoppingList\HomeCooking.ShoppingList.csproj", "{181AB8F3-18BD-4A75-B96D-E51FD1A2393D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "envoy", "envoy", "{FB66DEA4-908D-4871-9990-1919B8780E8C}"
+ProjectSection(SolutionItems) = preProject
+	envoy\envoy.yaml = envoy\envoy.yaml
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

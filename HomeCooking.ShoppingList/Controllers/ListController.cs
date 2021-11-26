@@ -9,7 +9,7 @@ namespace HomeCooking.ShoppingList.Controllers
         [HttpGet]
         [ApiConventionMethod(typeof(DefaultApiConventions), 
             nameof(DefaultApiConventions.Get))]       
-        public string Index()
+        public string CreateList()
         {
             return "OK";
         }
