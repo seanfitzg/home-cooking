@@ -114,7 +114,6 @@ services:
     ports:
       - "5202:80"
       - "15202:8001"
-#      - "50008:50001"
     networks:
       - home-cooking-network
   
