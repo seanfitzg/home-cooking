@@ -25,7 +25,8 @@ namespace HomeCooking.Api.Controllers
         {
             _mediator = mediator;
             _logger = logger;
-            _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (httpContextAccessor.HttpContext != null)
+                _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
         
         [HttpGet]
@@ -123,10 +124,10 @@ namespace HomeCooking.Api.Controllers
         [HttpGet]
         public IActionResult Error() => Problem();
         
-        private void LogError(Exception e)
+        private void LogError(Exception ex)
         {
-            _logger.Log(LogLevel.Error, e.ToString());
-            Console.WriteLine(e);
+            _logger.Log(LogLevel.Error, "{Ex}", ex);
+            Console.WriteLine(ex);
         }
 
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Security.Claims;
 using HomeCooking.Api.Authentication;
+using HomeCooking.Application.Behaviours;
 using HomeCooking.Application.EventBus;
 using HomeCooking.Data;
 using MediatR;
@@ -47,9 +48,9 @@ namespace HomeCooking.Api
             });
 
             services.AddSingleton<IEventBus, EventBus>();
-            services.AddMediatR(typeof(Application.CreateRecipeCommand), typeof(Application.CreateRecipeHandler));
-            services.AddMediatR(typeof(Application.GetAllRecipesHandler));
-            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddMediatR(typeof(Application.CreateRecipeCommand).Assembly);
+
             ConfigureCors(services);
             
             ConfigureOAuth(services);
