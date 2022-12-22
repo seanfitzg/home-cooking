@@ -15,12 +15,12 @@ namespace HomeCooking.Application.Behaviours
             _logger = logger;
         }
         
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handling {Name}", typeof(TRequest).Name);
             var response = await next();
             _logger.LogInformation("Handled {Name}", typeof(TResponse).Name);
-
+            
             return response;
         }
     }
