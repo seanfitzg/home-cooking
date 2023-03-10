@@ -34,7 +34,7 @@ services:
       context: .
       dockerfile: ./HomeCooking.Api/Dockerfile
     ports:
-      - "5000:80"
+      - "5010:80"
     environment:
       - IP=localhost # use 0.0.0.0 for heroku
       - PORT=80

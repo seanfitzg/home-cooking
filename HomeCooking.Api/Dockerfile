@@ -23,7 +23,7 @@ ENTRYPOINT ["dotnet", "HomeCooking.Api.dll"]
 # from solution dir
 # docker build -f HomeCooking.Api/Dockerfile -t homecooking-app:dev .
 
-# docker run -d -p 5000:80 --name homecooking-app homecooking-app:dev
+# docker run -d -p 5010:80 --name homecooking-app homecooking-app:dev
 
 # to run without docker:
 # dapr run --app-id homecooking-app --app-port 80 --dapr-http-port 3500 dotnet run
