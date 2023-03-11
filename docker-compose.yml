@@ -41,6 +41,12 @@ services:
       - DB_CONNECTION_STRING=Host=pgsql;Port=5432;Database=homecooking;Username=homecooking;Password=homecooking
     networks:
       - home-cooking-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost/ping" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
 
   home-cooking-app-dapr:
     image: "daprio/daprd:latest"
@@ -114,6 +120,9 @@ services:
     ports:
       - "5202:80"
       - "15202:8001"
+    depends_on:
+      home-cooking-app:
+        condition: service_healthy
     networks:
       - home-cooking-network
   
