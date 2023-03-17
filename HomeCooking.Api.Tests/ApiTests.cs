@@ -45,6 +45,13 @@ namespace HomeCooking.Api.Tests
             var id = response.Content.ReadAsStringAsync().Result;
             return int.Parse(id);
         }
+
+        [Fact]
+        public async void TestPing()
+        {
+            var response = await _client.GetAsync("/Ping");
+            response.EnsureSuccessStatusCode();
+        }
         
         [Fact]
         public async void IndexShouldReturnAListOfRecipes()
