@@ -30,7 +30,7 @@ namespace HomeCooking.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var connectionString = _configuration.GetRequiredSection($"ConnectionStrings:{env}");
+            var connectionString = _configuration.GetSection($"ConnectionStrings:{env}");
             
             var pgSqlConnectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? connectionString.Value;
             optionsBuilder

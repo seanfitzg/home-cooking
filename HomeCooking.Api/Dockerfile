@@ -18,6 +18,10 @@ RUN dotnet publish HomeCooking.Api.csproj -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build-env /src/HomeCooking.Api/out .
+
+RUN apt-get -y update
+RUN apt-get -y install curl
+
 ENTRYPOINT ["dotnet", "HomeCooking.Api.dll"]
 
 # from solution dir

@@ -1,5 +1,10 @@
 version: "3.4"
 
+  # curl http://localhost:5202/home-cooking-app/ping
+  # curl http://localhost:5202/home-cooking-queries/NutritionData
+  # curl http://localhost:5202/h/ping
+  # curl http://localhost:5202/q/NutritionData
+
 services:
   
   pgsql:
@@ -41,6 +46,12 @@ services:
       - DB_CONNECTION_STRING=Host=pgsql;Port=5432;Database=homecooking;Username=homecooking;Password=homecooking
     networks:
       - home-cooking-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost/ping" ]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
   home-cooking-app-dapr:
     image: "daprio/daprd:latest"
@@ -106,29 +117,28 @@ services:
     depends_on:
       - home-cooking-queries
     network_mode: "service:home-cooking-queries"
-
-  envoy:
-    image: envoyproxy/envoy:v1.14.2
-    volumes:
-      - ./envoy:/etc/envoy
+  
+  yarp-proxy:
+#    depends_on:
+#      home-cooking-app:
+#        condition: service_healthy
+    restart: always
+    image: ${DOCKER_REGISTRY-}yarp-proxy:dev
+    build:
+      context: .
+      dockerfile: ./YarpProxy/Dockerfile
     ports:
-      - "5202:80"
-      - "15202:8001"
+      - "5020:80"
     networks:
       - home-cooking-network
   
-  # curl http://localhost:5202/home-cooking-app/ping
-  # curl http://localhost:5202/home-cooking-queries/NutritionData
-  # curl http://localhost:5202/h/ping
-  # curl http://localhost:5202/q/NutritionData
-  
-  envoy-dapr:
+  yarp-proxy-dapr:
     image: "daprio/daprd:latest"
-    network_mode: "service:envoy"
+    network_mode: "service:yarp-proxy"
     depends_on:
-      - envoy    
+      - yarp-proxy   
     command: ["./daprd",
-              "-app-id", "envoy",
+              "-app-id", "yarp-proxy",
               "-app-port", "80",
               "-components-path", "/dapr",
     ]
