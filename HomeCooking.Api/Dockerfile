@@ -14,6 +14,7 @@ COPY . ./
 WORKDIR /src/HomeCooking.Api
 RUN dotnet publish HomeCooking.Api.csproj -c Release -o out
 
+
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
