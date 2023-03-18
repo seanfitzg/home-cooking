@@ -8,6 +8,7 @@
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose-envoy.yml" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include=".env" />

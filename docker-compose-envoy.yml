@@ -1,0 +1,148 @@
+version: "3.4"
+
+services:
+  
+  pgsql:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: homecooking
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: Password1!
+    volumes:
+      - ./sql/data:/var/lib/postgresql/data
+      - ./sql/scripts:/docker-entrypoint-initdb.d/
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - home-cooking-network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - home-cooking-network
+
+  home-cooking-app:
+    depends_on:
+      - pgsql
+    restart: always
+    image: ${DOCKER_REGISTRY-}home-cooking-app:dev
+    build:
+      context: .
+      dockerfile: ./HomeCooking.Api/Dockerfile
+    ports:
+      - "5010:80"
+    environment:
+      - IP=localhost # use 0.0.0.0 for heroku
+      - PORT=80
+      - DB_CONNECTION_STRING=Host=pgsql;Port=5432;Database=homecooking;Username=homecooking;Password=homecooking
+    networks:
+      - home-cooking-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost/ping" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  home-cooking-app-dapr:
+    image: "daprio/daprd:latest"
+    command:
+      [
+        "./daprd",
+        "-app-id", "home-cooking-app",
+        "-app-port", "80",
+        "-components-path", "/dapr",
+      ]
+    volumes:
+      - "./dapr/:/dapr"
+    depends_on:
+      - home-cooking-app
+    network_mode: "service:home-cooking-app"
+
+  logging-app:
+    image: ${DOCKER_REGISTRY-}logging-app:dev
+    build:
+      context: .
+      dockerfile: ./HomeCooking.Logging/Dockerfile
+    ports:
+      - "5001:80"
+    networks:
+      - home-cooking-network
+  
+  logging-app-dapr:
+    image: "daprio/daprd:latest"
+    command:
+      [
+        "./daprd",
+        "-app-id", "logging-app",
+        "-app-port", "80",
+        "-components-path", "/dapr",
+      ]
+    volumes:
+      - "./dapr/:/dapr"
+    depends_on:
+      - logging-app
+    network_mode: "service:logging-app"
+
+  home-cooking-queries:
+    image: ${DOCKER_REGISTRY-}home-cooking-queries:dev
+    build:
+      context: .
+      dockerfile: ./HomeCooking.Queries/Dockerfile
+    ports:
+      - "5004:80"
+    networks:
+      - home-cooking-network
+      
+  home-cooking-queries-dapr:
+    image: "daprio/daprd:latest"
+    command:
+      [
+        "./daprd",
+        "-app-id", "home-cooking-queries",
+        "-app-port", "80",
+        "-components-path", "/dapr",
+      ]
+    volumes:
+      - "./dapr/:/dapr"
+    depends_on:
+      - home-cooking-queries
+    network_mode: "service:home-cooking-queries"
+
+  envoy:
+    image: envoyproxy/envoy:v1.14.2
+    volumes:
+      - ./envoy:/etc/envoy
+    ports:
+      - "5202:80"
+      - "15202:8001"
+    depends_on:
+      home-cooking-app:
+        condition: service_healthy
+    networks:
+      - home-cooking-network
+  
+  # curl http://localhost:5202/home-cooking-app/ping
+  # curl http://localhost:5202/home-cooking-queries/NutritionData
+  # curl http://localhost:5202/h/ping
+  # curl http://localhost:5202/q/NutritionData
+  
+  envoy-dapr:
+    image: "daprio/daprd:latest"
+    network_mode: "service:envoy"
+    depends_on:
+      - envoy    
+    command: ["./daprd",
+              "-app-id", "envoy",
+              "-app-port", "80",
+              "-components-path", "/dapr",
+    ]
+    volumes:
+      - "./dapr/:/dapr"
+
+networks:
+  home-cooking-network:
