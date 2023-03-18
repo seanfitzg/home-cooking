@@ -17,8 +17,8 @@ namespace HomeCooking.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
-        
-        public static readonly ILoggerFactory ConsoleLoggerFactory
+
+        private static readonly ILoggerFactory ConsoleLoggerFactory
             = LoggerFactory.Create(builder =>
             {
                 builder.AddFilter((category, level) =>

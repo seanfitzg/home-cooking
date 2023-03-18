@@ -15,7 +15,6 @@ namespace HomeCooking.Api.Tests
 {
     public class ApiTests : IClassFixture<SelfHostedApi>
     {
-        private readonly SelfHostedApi _api;
         private readonly HttpClient _client;
         private readonly int _recipeId;
         private static readonly Fixture Fixture = new();
@@ -26,9 +25,8 @@ namespace HomeCooking.Api.Tests
         
         public ApiTests(SelfHostedApi api)
         {
-            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
-            _api = api;
-            _client = _api.CreateClient();
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "ApiTests");
+            _client = api.CreateClient();
             _recipeId = CreateRecipe(_client);
         }
 
@@ -62,10 +60,11 @@ namespace HomeCooking.Api.Tests
             
             response.EnsureSuccessStatusCode(); // Status Code 200-299
             Assert.Equal("application/json; charset=utf-8", 
-                response.Content.Headers.ContentType.ToString());
+                response.Content.Headers.ContentType?.ToString());
             
             var returnData = await response.Content.ReadAsStringAsync();
             var recipes = JsonSerializer.Deserialize<IList<RecipeDto>>(returnData);
+            Assert.NotNull(recipes);
         }
         
         [Fact]
