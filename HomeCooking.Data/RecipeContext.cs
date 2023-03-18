@@ -17,8 +17,8 @@ namespace HomeCooking.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
-        
-        public static readonly ILoggerFactory ConsoleLoggerFactory
+
+        private static readonly ILoggerFactory ConsoleLoggerFactory
             = LoggerFactory.Create(builder =>
             {
                 builder.AddFilter((category, level) =>
@@ -29,10 +29,12 @@ namespace HomeCooking.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var pgSqlConnectioString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? "Host=localhost;Port=5432;Database=homecooking;Username=homecooking;Password=homecooking";
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var connectionString = _configuration.GetSection($"ConnectionStrings:{env}");
+            var pgSqlConnectionString = connectionString.Value;
             optionsBuilder
                 .UseLoggerFactory(ConsoleLoggerFactory)
-                .UseNpgsql(pgSqlConnectioString);
+                .UseNpgsql(pgSqlConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

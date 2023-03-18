@@ -1,14 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HomeCooking.Data;
-using HomeCooking.Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace HomeCooking.Api
 {
@@ -19,6 +11,7 @@ namespace HomeCooking.Api
             try
             {
                 Console.WriteLine("Starting HomeCooking API...");
+                Console.WriteLine($"Environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception e)
