@@ -14,7 +14,7 @@ namespace HomeCooking.Api.Controllers
         [HttpGet]
         public string Index()
         {
-            return "ok";
+            return "ok from ping";
         }
     }
 }

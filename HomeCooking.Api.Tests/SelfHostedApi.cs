@@ -1,12 +1,10 @@
 ﻿using System.Security.Claims;
-using HomeCooking.Api.Authentication;
 using HomeCooking.Application.EventBus;
 using HomeCooking.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;

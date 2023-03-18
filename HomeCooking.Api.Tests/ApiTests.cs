@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -25,6 +26,7 @@ namespace HomeCooking.Api.Tests
         
         public ApiTests(SelfHostedApi api)
         {
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
             _api = api;
             _client = _api.CreateClient();
             _recipeId = CreateRecipe(_client);
