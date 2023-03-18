@@ -31,8 +31,7 @@ namespace HomeCooking.Data
         {
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var connectionString = _configuration.GetSection($"ConnectionStrings:{env}");
-            
-            var pgSqlConnectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? connectionString.Value;
+            var pgSqlConnectionString = connectionString.Value;
             optionsBuilder
                 .UseLoggerFactory(ConsoleLoggerFactory)
                 .UseNpgsql(pgSqlConnectionString);

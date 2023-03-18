@@ -41,9 +41,9 @@ services:
     ports:
       - "5010:80"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - IP=localhost # use 0.0.0.0 for heroku
       - PORT=80
-      - DB_CONNECTION_STRING=Host=pgsql;Port=5432;Database=homecooking;Username=homecooking;Password=homecooking
     networks:
       - home-cooking-network
     healthcheck:
@@ -65,7 +65,8 @@ services:
     volumes:
       - "./dapr/:/dapr"
     depends_on:
-      - home-cooking-app
+      home-cooking-app:
+        condition: service_healthy
     network_mode: "service:home-cooking-app"
 
   logging-app:
@@ -119,9 +120,9 @@ services:
     network_mode: "service:home-cooking-queries"
   
   yarp-proxy:
-#    depends_on:
-#      home-cooking-app:
-#        condition: service_healthy
+    depends_on:
+      home-cooking-app:
+        condition: service_healthy
     restart: always
     image: ${DOCKER_REGISTRY-}yarp-proxy:dev
     build:
