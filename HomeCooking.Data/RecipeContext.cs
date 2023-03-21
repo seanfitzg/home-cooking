@@ -29,12 +29,26 @@ namespace HomeCooking.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var connectionString = _configuration.GetSection($"ConnectionStrings:{env}");
-            var pgSqlConnectionString = connectionString.Value;
+            var connectionString = GetConnectionString();
+            var pgSqlConnectionString = connectionString;
             optionsBuilder
                 .UseLoggerFactory(ConsoleLoggerFactory)
                 .UseNpgsql(pgSqlConnectionString);
+        }
+
+        private string GetConnectionString()
+        {
+            //var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            
+            var host = Environment.GetEnvironmentVariable("DBHOST");
+            var port = Environment.GetEnvironmentVariable("DBPORT");
+            var db = Environment.GetEnvironmentVariable("DBNAME");
+            var username = Environment.GetEnvironmentVariable("DBUSERNAME");
+            var password = Environment.GetEnvironmentVariable("DBPASSWORD");
+            
+            //var connectionString = _configuration.GetSection($"ConnectionStrings:{env}").Value;
+            var connectionString = $"Host={host};Port={port};Database={db};Username={username};Password={password}";
+            return connectionString;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
