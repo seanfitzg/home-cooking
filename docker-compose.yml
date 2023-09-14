@@ -43,6 +43,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - IP=localhost # use 0.0.0.0 for heroku
+      - DBHOST=pgsql
+      - DBPORT=5432
+      - DBNAME=homecooking
+      - DBUSERNAME=homecooking
+      - DBPASSWORD=homecooking
       - PORT=80
     networks:
       - home-cooking-network

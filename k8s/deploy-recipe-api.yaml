@@ -4,11 +4,16 @@ kind: Deployment
 metadata:
   name: recipeapi
 spec:
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
         app: recipeapi
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "nodeapp"
+        dapr.io/app-port: "3000"
+        dapr.io/enable-api-logging: "true"
     spec:
       containers:
       - name: recipeapi
@@ -17,11 +22,11 @@ spec:
           limits:
             memory: 512Mi
             cpu: "1"
-        ports:
-        - containerPort: 80
+        # ports:
+        # - containerPort: 80
         env:
         - name: ASPNETCORE_URLS
-          value: http://*:80
+          value: http://*:8001
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
         - name: DBHOST
@@ -47,6 +52,6 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+  - port: 8001
   selector:
     app: recipeapi
