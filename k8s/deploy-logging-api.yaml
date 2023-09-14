@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loggingapi
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: loggingapi
+    spec:
+      containers:
+      - name: loggingapi
+        image: logging-app:dev
+        resources: 
+          limits:
+            memory: 512Mi
+            cpu: "1"
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:80
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        # - name: DBHOST
+        #   value: $(POSTGRESDB_SERVICE_HOST)
+        # - name: DBPORT
+        #   value: "5432"
+        # - name: DBNAME
+        #   value: "homecooking"
+        # - name: DBUSERNAME
+        #   value: "homecooking"
+        # - name: DBPASSWORD
+        #   value: "homecooking"                                        
+  selector:
+    matchLabels:
+      app: loggingapi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: loggingapi-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8002
+  selector:
+    app: loggingapi
